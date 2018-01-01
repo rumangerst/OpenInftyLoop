@@ -11,13 +11,14 @@ func _ready():
 	#initialize_map(10, 10)
 	#map_generator(3, 8, 4)
 	
-	deserialize("current.level")
+	initialize_map(2, 1)
+	map_generator_nosolution(1, 2, 4)
+	
+	#deserialize("current.level")
 	
 func initialize_map(width, height):
 	
-	# Remove existing tiles
-	for child in map_tiles:
-		child.queue_free()
+	clear_map()
 	
 	map_tiles = []
 	for i in range(width * height):
@@ -25,6 +26,23 @@ func initialize_map(width, height):
 		
 	map_width = width
 	map_height = height
+	
+func clear_map():
+	
+	for i in range(len(map_tiles)):
+		var child = map_tiles[i]
+		if(child != null):
+			child.queue_free()
+			map_tiles[i] = null
+			
+		
+func map_generator_nosolution(min_generated_lines, min_line_length, max_bouncing):
+	
+	map_generator(min_generated_lines, min_line_length, max_bouncing)
+	
+	while is_solved():
+		clear_map() 
+		map_generator(min_generated_lines, min_line_length, max_bouncing)
 	
 func map_generator(min_generated_lines, min_line_length, max_bouncing):
 	
@@ -92,16 +110,18 @@ func map_generator(min_generated_lines, min_line_length, max_bouncing):
 					
 					var count = north + south + east + west
 					
+					var random_rotation = randi() % 4
+					
 					if count == 1:
-						add_tile("end", 0, i, j)
+						add_tile("end", random_rotation, i, j)
 					elif count == 2 and north == south:
-						add_tile("straight", 0, i, j)
+						add_tile("straight", random_rotation, i, j)
 					elif count == 2 and north != south:
-						add_tile("curve", 0, i, j)
+						add_tile("curve", random_rotation, i, j)
 					elif count == 3:
-						add_tile("tri", 0, i, j)
+						add_tile("tri", random_rotation, i, j)
 					elif count == 4:
-						add_tile("cross", 0, i, j)
+						add_tile("cross", random_rotation, i, j)
 					else:
 						print("Empty line generated")
 						
