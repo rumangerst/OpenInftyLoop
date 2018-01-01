@@ -60,6 +60,19 @@ func set_tile_type(type):
 		print("Unknown tile type " + type)
 	
 
+func get_tile_connection(direction):
+	
+	if(direction == "north"):
+		return self.tile_connections_rotated[0]
+	elif(direction == "east"):
+		return self.tile_connections_rotated[1]
+	elif(direction == "south"):
+		return self.tile_connections_rotated[2]
+	elif(direction == "west"):
+		return self.tile_connections_rotated[3]
+	else:
+		return null
+
 func set_tile_rotation(tile_rotation):
 	
 	tile_rotation = tile_rotation % 4
