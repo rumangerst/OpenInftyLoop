@@ -95,3 +95,4 @@ func set_tile_rotation(tile_rotation):
 		print("Unknown rotation " + tile_rotation)
 		
 	emit_signal("updated_tile_rotation")
+	

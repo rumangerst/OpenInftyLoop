@@ -8,8 +8,10 @@ var map_tiles = []
 
 func _ready():
 	randomize()
-	initialize_map(10, 10)
-	map_generator(4, 15, 4)
+	#initialize_map(10, 10)
+	#map_generator(3, 8, 4)
+	
+	deserialize("current.level")
 	
 func initialize_map(width, height):
 	
@@ -24,11 +26,11 @@ func initialize_map(width, height):
 	map_width = width
 	map_height = height
 	
-func map_generator(generator_lines, min_line_length, max_bouncing):
+func map_generator(min_generated_lines, min_line_length, max_bouncing):
 	
 	var generated_lines = 0
 	
-	while generated_lines != generator_lines:
+	while generated_lines < min_generated_lines:
 		
 		var x = randi() % map_width
 		var y = randi() % map_height
@@ -71,8 +73,8 @@ func map_generator(generator_lines, min_line_length, max_bouncing):
 			line_length += 1
 		
 		# The map must be at least given length (but to prevent deadlock, only require for first line)
-		if(line_length < min_line_length and generator_lines == 0):
-			generator_lines -= 1
+		if(line_length < min_line_length and generated_lines == 0):
+			generated_lines -= 1
 			continue
 			
 		# Generate the map by simple connection
@@ -191,3 +193,51 @@ func check_if_solved():
 		print("Map is solved!")
 	else:
 		print("Map not solved yet")
+		
+func serialize(filename):
+	var tile_list = []
+	
+	for x in range(map_width):
+		for y in range(map_height):
+			var tile = get_tile(x,y)
+			
+			if tile != null:
+				tile_list.append({
+					type = tile.tile_type,
+					rotation = tile.tile_rotation,
+					x = x,
+					y = y
+					})		
+	
+			
+	var data = {
+		tiles = tile_list,
+		width = map_width,
+		height = map_height
+	}
+		
+	var savegame = File.new()
+	savegame.open("user://" + filename, File.WRITE)
+	savegame.store_string(to_json(data))
+	savegame.close()
+	
+func deserialize(filename):
+	var savegame = File.new()
+	savegame.open("user://" + filename, File.READ)
+	var data = parse_json(savegame.get_as_text())
+	savegame.close()
+	
+	var width = data["width"]
+	var height = data["height"]
+	
+	initialize_map(width, height)
+	
+	for tiledata in data["tiles"]:
+		
+		var x = int(tiledata["x"])
+		var y = int(tiledata["y"])
+		var type = tiledata["type"]
+		var rotation = int(tiledata["rotation"])
+		
+		add_tile(type, rotation, x, y)
+
