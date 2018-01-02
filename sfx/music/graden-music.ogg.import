@@ -1,0 +1,14 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/graden-music.ogg-df47f54473ffe0dc0eecdbacdd83eda3.oggstr"
+
+[deps]
+
+source_md5="71aed274777db1f31864a5b1558c0956"
+
+[params]
+
+loop=true
+loop_offset=0

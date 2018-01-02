@@ -17,8 +17,12 @@ func _ready():
 	$GameUI/gameOptionsPanel/VBoxContainer/buttonResetProgress.connect("button_down", self, "game_reset")
 	
 	# Game options
-	$GameUI/buttonGameOptions.connect("button_down", $GameUI/gameOptionsPanel, "show")
+	preferences_load()
+	$GameUI/buttonGameOptions.connect("button_down", self, "preferences_show")
 	$GameUI/gameOptionsPanel/buttonCloseGameOptions.connect("button_down", $GameUI/gameOptionsPanel, "hide")
+	$GameUI/gameOptionsPanel/VBoxContainer/sliderVolume.connect("value_changed", self, "preferences_volume_changed")
+	$GameUI/gameOptionsPanel/VBoxContainer/sliderSFXVolume.connect("value_changed", self, "preferences_SFXVolume_changed")
+	$GameUI/gameOptionsPanel/VBoxContainer/sliderMusicVolume.connect("value_changed", self, "preferences_MusicVolume_changed")
 	
 	# Initial start
 	load_game("res://games/default.json")
@@ -27,6 +31,63 @@ func _ready():
 	
 func _process(delta):	
 	get_node("Level").text = str(game_get_level() + 1)
+	
+# Handling preferences
+func preferences_load():
+	var file = File.new()
+	file.open("user://preferences.json", File.READ)
+	
+	if file.is_open():
+		var data = parse_json(file.get_as_text())
+		file.close()
+		
+		# Load volume
+		if "volume" in data.keys():
+			var volume = clamp(data["volume"], -60, 0)
+			AudioServer.set_bus_volume_db(0, volume)
+			$GameUI/gameOptionsPanel/VBoxContainer/sliderVolume.value = volume
+		if "sfx_volume" in data.keys():
+			var volume = clamp(data["sfx_volume"], -60, 0)
+			AudioServer.set_bus_volume_db(2, volume)
+			$GameUI/gameOptionsPanel/VBoxContainer/sliderSFXVolume.value = volume
+		if "music_volume" in data.keys():
+			var volume = clamp(data["music_volume"], -60, 0)
+			AudioServer.set_bus_volume_db(1, volume)
+			$GameUI/gameOptionsPanel/VBoxContainer/sliderMusicVolume.value = volume
+	
+func preferences_save():
+	
+	var data = {
+		volume = AudioServer.get_bus_volume_db(0),
+		sfx_volume = AudioServer.get_bus_volume_db(2),
+		music_volume = AudioServer.get_bus_volume_db(1)
+		}
+	
+	var file = File.new()
+	file.open("user://preferences.json", File.WRITE)
+	file.store_line(to_json(data))
+	file.close()
+	
+func preferences_volume_changed(volume):
+	volume = clamp(volume, -60, 0)
+	AudioServer.set_bus_volume_db(0, volume)
+	preferences_save()
+	
+func preferences_SFXVolume_changed(volume):
+	volume = clamp(volume, -60, 0)
+	AudioServer.set_bus_volume_db(2, volume)
+	preferences_save()
+
+func preferences_MusicVolume_changed(volume):
+	volume = clamp(volume, -60, 0)
+	AudioServer.set_bus_volume_db(1, volume)
+	preferences_save()
+	
+func preferences_show():
+	if(not $GameUI/gameOptionsPanel.visible):
+		$AnimationPlayer.play("ShowOptionsPanelUI")
+	else:
+		$GameUI/gameOptionsPanel.visible = false
 
 # Game control functions
 func game_start_level():	

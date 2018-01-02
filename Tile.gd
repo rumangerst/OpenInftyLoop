@@ -1,10 +1,10 @@
 extends TextureButton
 
-var texture_cross = preload("res://gfx/tiles/cross.svg")
-var texture_curve = preload("res://gfx/tiles/curve.svg")
-var texture_end = preload("res://gfx/tiles/end.svg")
-var texture_straight = preload("res://gfx/tiles/straight.svg")
-var texture_tri = preload("res://gfx/tiles/tri.svg")
+var texture_cross = preload("res://gfx/tiles/cross.png")
+var texture_curve = preload("res://gfx/tiles/curve.png")
+var texture_end = preload("res://gfx/tiles/end.png")
+var texture_straight = preload("res://gfx/tiles/straight.png")
+var texture_tri = preload("res://gfx/tiles/tri.png")
 
 var rotation_animation_speed = 500
 var color_animation_speed = 1
@@ -13,6 +13,7 @@ var tile_type = "cross"
 var tile_rotation = 0
 var tile_connections_unrotated = [1, 1, 1, 1] # NESW
 var tile_connections_rotated = [1, 1, 1, 1]
+var tile_connections_count = 4
 
 var target_color = Color(0,0,0)
 var target_rotation = 0
@@ -75,6 +76,10 @@ func set_tile_type(type):
 		self.tile_connections_unrotated = [1,0,1,1]
 	else:
 		print("Unknown tile type " + type)
+		
+	self.tile_connections_count = 0
+	for x in self.tile_connections_unrotated:
+		self.tile_connections_count += x
 	
 
 func get_tile_connection(direction):

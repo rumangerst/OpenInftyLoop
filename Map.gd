@@ -142,6 +142,22 @@ func is_fully_connected(x, y):
 	
 	return true
 	
+func get_active_connection_count(x, y):
+	
+	var tile = get_tile(x, y)
+	
+	if(tile == null):
+		return 0
+		
+	var connections = 0
+	
+	for dir in ["north", "east", "south", "west"]:
+		if(tile.get_tile_connection(dir) == 1):
+			var c = get_tile_connection_from(x,y,dir)
+			connections += c if c != null else 0
+	
+	return connections
+	
 func is_solved():
 		
 	for x in range(map_width):
@@ -159,9 +175,8 @@ func get_entropy():
 	for x in range(map_width):
 		for y in range(map_height):
 			if(get_tile(x,y) != null):
-				max_entropy += 1
-				if(is_fully_connected(x, y)):
-					entropy -= 1
+				max_entropy += get_tile(x,y).tile_connections_count
+				entropy -= get_active_connection_count(x,y)
 	
 	return entropy / float(max_entropy)
 	
