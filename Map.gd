@@ -1,22 +1,17 @@
 extends Control
 
-const MapGenerator_Random = preload("res://map_generators/random.gd")
-const MapGenerator_RandomSymm = preload("res://map_generators/random_symm.gd")
+const tile_margins = [10, 10, 10, 50] # Left, Top, Right, Bottom
 
 var map_width = 0
 var map_height = 0
 var map_tiles = []
+var map_color = Color(0,0,0)
+
+signal map_solved # Triggered if the map is solved
+signal map_update_color_data(map_color, entropy) # triggered if the color changes
 
 func _ready():
-	randomize()
-	initialize_map(11, 11)
-	MapGenerator_Random.map_generator_nosolution(self, 3, 8, 4)
-	
-	#initialize_map(2, 1)
-	#MapGenerator_Random.map_generator_nosolution(self, 1, 2, 4)
-	
-	#deserialize("current.level")
-	
+	randomize()	
 	get_viewport().connect("size_changed", self, "update_map")
 
 func update_map():
@@ -43,12 +38,34 @@ func clear_map():
 			child.queue_free()
 			map_tiles[i] = null
 			
+
+func update_map_colors():
+	var entropy = get_entropy()
+	
+	# Update tile colors
+	var tile_color = Color(0,0,0).linear_interpolate(map_color, -entropy).darkened(0.5)
+	tile_color.r *= 0.8
+	tile_color.g *= 0.8
+	tile_color.b *= 0.8
+	
+	for x in range(map_width):
+		for y in range(map_height):
+			var tile = get_tile(x,y)
+			
+			if(tile != null):
+				tile.target_color = tile_color
+	
+	# Update the entropy
+	emit_signal("map_update_color_data", map_color, entropy)
 		
 
 func update_tile_position(x,y):
 	
+	var available_width = rect_size.x - tile_margins[0] - tile_margins[2]
+	var available_height = rect_size.y - tile_margins[1] - tile_margins[3]
+	
 	var tile = get_tile(x,y)
-	var tile_size = round(min(128, min(rect_size.x / map_width, rect_size.y / map_height)))
+	var tile_size = round(min(128, min(available_width / map_width, available_height / map_height)))
 	
 	
 	if(tile != null):
@@ -69,8 +86,9 @@ func add_tile(tile_type, tile_rotation, x, y):
 	tile.set_name("tile" + str(x) + "_" + str(y))
 	update_tile_position(x, y)
 	
-	add_child(tile)
+	get_node("Tiles").add_child(tile)
 	tile.connect("updated_tile_rotation", self, "check_if_solved")
+	tile.connect("updated_tile_rotation", self, "update_map_colors")
 	
 	
 func get_tile(x,y):
@@ -133,12 +151,30 @@ func is_solved():
 	
 	return true
 	
+func get_entropy():	
+	
+	var entropy = 0
+	var max_entropy = 0
+		
+	for x in range(map_width):
+		for y in range(map_height):
+			if(get_tile(x,y) != null):
+				max_entropy += 1
+				if(is_fully_connected(x, y)):
+					entropy -= 1
+	
+	return entropy / float(max_entropy)
+	
 func check_if_solved():
 	
 	if(is_solved()):
 		print("Map is solved!")
-	else:
-		print("Map not solved yet")
+		
+		# Color the map white
+		map_color = Color(1,1,1)
+		update_map_colors()
+		
+		emit_signal("map_solved")
 		
 func serialize(filename):
 	var tile_list = []

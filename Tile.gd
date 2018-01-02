@@ -7,21 +7,25 @@ var texture_straight = preload("res://gfx/tiles/straight.svg")
 var texture_tri = preload("res://gfx/tiles/tri.svg")
 
 var rotation_animation_speed = 500
+var color_animation_speed = 1
 
 var tile_type = "cross"
 var tile_rotation = 0
 var tile_connections_unrotated = [1, 1, 1, 1] # NESW
 var tile_connections_rotated = [1, 1, 1, 1]
 
+var target_color = Color(0,0,0)
 var target_rotation = 0
 
 signal updated_tile_rotation # Triggered if the user rotated the tile
 
 func _ready():
-	pass
+	end_tile_animations()
+	get_node("AnimationPlayer").play("ShowTile")
 	
 func _process(delta):
 	
+	# Update the rotation
 	var rotation_diff = target_rotation - self.rect_rotation
 	
 	if( abs(rotation_diff) > delta * rotation_animation_speed ):
@@ -33,9 +37,22 @@ func _process(delta):
 		
 	else:
 		 self.rect_rotation = self.target_rotation
+		
+	# Update the color
+	var current_color = Vector3(self_modulate.r, self_modulate.g, self_modulate.b)
+	var target_color = Vector3(self.target_color.r, self.target_color.g, self.target_color.b)
+	var color_diff = target_color - current_color
+	
+	var new_color = current_color + color_diff * delta / color_animation_speed
+	self.self_modulate = Color(new_color[0], new_color[1], new_color[2])
+		
+	
+func end_tile_animations():
+	self.rect_rotation = self.target_rotation 
 
 func _pressed():	
 	set_tile_rotation(self.tile_rotation + 1)
+	$sfxRotate.play()
 
 func set_tile_type(type):
 	
@@ -95,4 +112,3 @@ func set_tile_rotation(tile_rotation):
 		print("Unknown rotation " + tile_rotation)
 		
 	emit_signal("updated_tile_rotation")
-	

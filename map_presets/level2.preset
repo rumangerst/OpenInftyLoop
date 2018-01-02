@@ -1,0 +1,16 @@
+########################################################
+# # = Comment line
+# Newline / empty line is a spacer for a new set of independent connections
+# Please check if the map is solvable
+# Map definition consists of characters:
+# 0 = No tile
+# 1 = Tile with random rotation
+########################################################
+
+# Introduces curves
+
+11111
+10000
+11111
+
+

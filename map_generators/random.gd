@@ -1,15 +1,8 @@
 #
-# Random map generator without any symmetry
+# Random map generator
 #
 
-static func map_generator_nosolution(map_node, min_generated_lines, min_line_length, max_bouncing):
-	
-	map_generator(map_node, min_generated_lines, min_line_length, max_bouncing)
-	
-	while map_node.is_solved():
-		map_node.clear_map() 
-		map_generator(map_node, min_generated_lines, min_line_length, max_bouncing)
-	
+const MapUtils = preload("res://map_generators/map_utils.gd")
 
 static func map_generator(map_node, min_generated_lines, min_line_length, max_bouncing):
 	
@@ -65,35 +58,9 @@ static func map_generator(map_node, min_generated_lines, min_line_length, max_bo
 			generated_lines -= 1
 			continue
 			
-		# Generate the map by simple connection
-		for i in range(map_width):
-			for j in range(map_height):
-				
-				var current = generator_pre[i + j * map_width]
-				
-				if current > 0:
-					
-					var north = generator_pre[i + (j - 1) * map_width] if j - 1 >= 0 else 0
-					var south = generator_pre[i + (j + 1) * map_width] if j + 1 < map_height else 0
-					var east = generator_pre[(i + 1) + j * map_width] if i + 1 < map_width else 0
-					var west = generator_pre[(i - 1) + j * map_width] if i - 1 >= 0 else 0
-					
-					var count = north + south + east + west
-					
-					var random_rotation = randi() % 4
-					
-					if count == 1:
-						map_node.add_tile("end", random_rotation, i, j)
-					elif count == 2 and north == south:
-						map_node.add_tile("straight", random_rotation, i, j)
-					elif count == 2 and north != south:
-						map_node.add_tile("curve", random_rotation, i, j)
-					elif count == 3:
-						map_node.add_tile("tri", random_rotation, i, j)
-					elif count == 4:
-						map_node.add_tile("cross", random_rotation, i, j)
-					else:
-						print("Empty line generated")
-						
+		# Generate the line
+		MapUtils.generate_map_from_generator_pre(map_node, generator_pre)
 				
 		generated_lines += 1
+		
+	MapUtils.make_non_solution(map_node)

@@ -14,7 +14,7 @@
    viewBox="0 0 33.866666 33.866668"
    version="1.1"
    id="svg8"
-   sodipodi:docname="curve.svg"
+   sodipodi:docname="close.svg"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    inkscape:export-filename="/home/ruman/Projects/OpenInftyLoop/gfx/tiles/end.png"
    inkscape:export-xdpi="150"
@@ -29,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="-33.71021"
-     inkscape:cy="57.982993"
+     inkscape:cx="47.718361"
+     inkscape:cy="58.340136"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -70,10 +70,19 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-263.13332)">
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:5.29166672;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 0,280.06665 c 0,0 16.933334,0 16.933334,-16.93333"
-       id="path19"
-       inkscape:connector-curvature="0" />
+    <g
+       id="g824"
+       transform="translate(-4.2333339,-4.2333365)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path818"
+         d="m 8.4666667,271.59999 25.4000013,25.4"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5.29166651;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path820"
+         d="m 8.4666667,296.99999 25.4000013,-25.4"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5.29166651;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
   </g>
 </svg>
