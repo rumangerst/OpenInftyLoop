@@ -98,7 +98,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=3]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -188,10 +188,11 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Mouse" ]
+_sections_unfolded = [ "Rect" ]
 
 [node name="gameOptionsPanel" type="PopupPanel" parent="GameUI" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -206,7 +207,7 @@ theme = ExtResource( 5 )
 popup_exclusive = false
 _sections_unfolded = [ "Margin", "Popup", "Theme", "Visibility", "custom_styles" ]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameUI/gameOptionsPanel" index="1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameUI/gameOptionsPanel" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -303,7 +304,7 @@ mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Label" type="Label" parent="GameUI/gameOptionsPanel/VBoxContainer" index="4"]
+[node name="labelSliderVolume" type="Label" parent="GameUI/gameOptionsPanel/VBoxContainer" index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -348,7 +349,7 @@ ticks_on_borders = true
 focus_mode = 2
 _sections_unfolded = [ "custom_icons", "custom_styles" ]
 
-[node name="Label2" type="Label" parent="GameUI/gameOptionsPanel/VBoxContainer" index="6"]
+[node name="labelSliderSFXVolume" type="Label" parent="GameUI/gameOptionsPanel/VBoxContainer" index="6"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -393,7 +394,7 @@ ticks_on_borders = true
 focus_mode = 2
 _sections_unfolded = [ "custom_icons" ]
 
-[node name="Label3" type="Label" parent="GameUI/gameOptionsPanel/VBoxContainer" index="8"]
+[node name="labelSliderMusicVolume" type="Label" parent="GameUI/gameOptionsPanel/VBoxContainer" index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -438,7 +439,7 @@ ticks_on_borders = true
 focus_mode = 2
 _sections_unfolded = [ "custom_icons" ]
 
-[node name="buttonExit" type="Button" parent="GameUI/gameOptionsPanel" index="2"]
+[node name="buttonExit" type="Button" parent="GameUI/gameOptionsPanel" index="1"]
 
 anchor_left = 0.0
 anchor_top = 1.0
@@ -548,7 +549,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/normal = SubResource( 5 )
+custom_styles/normal = SubResource( 3 )
 custom_fonts/font = ExtResource( 8 )
 toggle_mode = false
 enabled_focus_mode = 2

@@ -134,7 +134,7 @@ func update_responsive_ui():
 	var available = $GameUI.rect_size
 	
 	# The option panel should be responsive
-	if available.x <= 500:
+	if available.x < available.y:
 		$GameUI/gameOptionsPanel.margin_right = available.x
 	else:
 		$GameUI/gameOptionsPanel.margin_right = min(400, available.x)
