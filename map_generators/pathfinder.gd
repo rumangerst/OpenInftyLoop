@@ -8,6 +8,34 @@ const PATHFINDER_WEIGHT_OPEN_TAINTED = 2
 const PATHFINDER_WEIGHT_BACKTRACKING = 1
 const MAX_ADDITIONAL_TRIES = 100
 const MAX_ADDITIONAL_PATHING_TRIES = 100
+const PROBABILITY_SYMMX = 0.25
+const PROBABILITY_SYMMY = 0.25
+
+static func set_matrix(matrix, matrix_width, x, y, symmx, symmy, value):
+	
+	matrix[x + y * matrix_width] = value
+
+	if symmx:
+		var center_x = (matrix_width - 1) / 2
+		var diff = center_x - x
+		
+		matrix[(center_x + diff) + y * matrix_width] = value
+	
+	if symmy:
+		var matrix_height = len(matrix) / matrix_width
+		var center_y = (matrix_height - 1) / 2
+		var diff = center_y - y
+		
+		matrix[x + (center_y + diff) * matrix_width] = value
+		
+	if symmx and symmy:
+		var matrix_height = len(matrix) / matrix_width
+		var center_y = (matrix_height - 1) / 2
+		var center_x = (matrix_width - 1) / 2
+		var diffy = center_y - y
+		var diffx = center_x - x
+		
+		matrix[(center_x + diffx) + (center_y + diffy) * matrix_width] = value
 
 static func map_generator(map_node, min_coverage, min_linelength, min_paths):
 	
@@ -20,6 +48,23 @@ static func map_generator(map_node, min_coverage, min_linelength, min_paths):
 	var paths = 0
 	var first = true
 	var tries = 0
+	var coverage_per_line = 1
+	
+	# Determine if we want symmetry
+	var symmx = randf() < PROBABILITY_SYMMX 
+	var symmy = randf() < PROBABILITY_SYMMY
+	
+	if map_width % 2 == 0:
+		symmx = false	
+	if map_height % 2 == 0:
+		symmy = false	
+	
+	if symmx:
+		min_linelength /= 2
+		coverage_per_line *= 2
+	if symmy:
+		min_linelength /= 2
+		coverage_per_line *= 2
 	
 	while coverage < min_coverage or paths < min_paths:
 		
@@ -30,7 +75,7 @@ static func map_generator(map_node, min_coverage, min_linelength, min_paths):
 			
 		tries += 1
 		
-		var x = randi() % map_width
+		var x = randi() % map_width 
 		var y = randi() % map_height
 		
 		if(map_node.get_tile(x,y) != null):
@@ -43,7 +88,7 @@ static func map_generator(map_node, min_coverage, min_linelength, min_paths):
 			generator_tainted.append(0)
 			
 		# Initial start of the path
-		generator_pre[x + y * map_width] = 1
+		set_matrix(generator_pre, map_width, x, y, symmx, symmy, 1)
 				
 		# Count how long the generated line will be
 		var line_length = 1
@@ -105,7 +150,7 @@ static func map_generator(map_node, min_coverage, min_linelength, min_paths):
 				x -= 1
 				
 			if(generator_pre[x + y * map_width] != 1):
-				generator_pre[x + y * map_width] = 1
+				set_matrix(generator_pre, map_width, x, y, symmx, symmy, 1)
 				line_length += 1
 				
 				
@@ -113,7 +158,7 @@ static func map_generator(map_node, min_coverage, min_linelength, min_paths):
 			
 		if line_length >= 2:
 			MapUtils.generate_map_from_generator_pre(map_node, generator_pre)
-			coverage += line_length
+			coverage += line_length * coverage_per_line
 			paths += 1
 			tries = 0
 			

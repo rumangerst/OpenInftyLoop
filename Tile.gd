@@ -6,7 +6,7 @@ var texture_end = preload("res://gfx/tiles-new-2/end.svg")
 var texture_straight = preload("res://gfx/tiles-new-2/straight.svg")
 var texture_tri = preload("res://gfx/tiles-new-2/tri.svg")
 
-var rotation_animation_speed = 500
+var rotation_animation_speed = 15 # old code: 500
 var color_animation_speed = 1
 
 var tile_type = "cross"
@@ -29,15 +29,25 @@ func _process(delta):
 	# Update the rotation
 	var rotation_diff = target_rotation - self.rect_rotation
 	
-	if( abs(rotation_diff) > delta * rotation_animation_speed ):
+	if rotation_diff < 0:
+		self.rect_rotation = self.rect_rotation - 360
+		rotation_diff = target_rotation - self.rect_rotation
 		
-		self.rect_rotation += delta * rotation_animation_speed
-		
-		if (self.rect_rotation > 360):
-			self.rect_rotation = self.rect_rotation - 360
-		
+	if rotation_diff > 1:
+		self.rect_rotation += delta * rotation_diff * rotation_animation_speed
 	else:
-		 self.rect_rotation = self.target_rotation
+		self.rect_rotation = self.target_rotation
+		
+	
+#	if( abs(rotation_diff) > delta * rotation_animation_speed ):
+#
+#		self.rect_rotation += delta * rotation_animation_speed
+#
+#		if (self.rect_rotation > 360):
+#			self.rect_rotation = self.rect_rotation - 360
+#
+#	else:
+#		 self.rect_rotation = self.target_rotation
 		
 	# Update the color
 	var current_color = Vector3(self_modulate.r, self_modulate.g, self_modulate.b)
