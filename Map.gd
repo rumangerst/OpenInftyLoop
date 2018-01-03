@@ -253,13 +253,13 @@ func serialize(filename):
 	}
 		
 	var savegame = File.new()
-	savegame.open("user://" + filename, File.WRITE)
+	savegame.open(filename, File.WRITE)
 	savegame.store_string(to_json(data))
 	savegame.close()
 	
 func deserialize(filename):
 	var savegame = File.new()
-	savegame.open("user://" + filename, File.READ)
+	savegame.open(filename, File.READ)
 	var data = parse_json(savegame.get_as_text())
 	savegame.close()
 	

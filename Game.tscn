@@ -54,7 +54,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -111,13 +111,10 @@ autoplay = ""
 
 [node name="Level" type="Label" parent="." index="2"]
 
-anchor_left = 1.0
-anchor_top = 1.0
+anchor_left = 0.0
+anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -1010.0
-margin_top = -206.0
-margin_bottom = 55.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 2
 size_flags_horizontal = 1
@@ -126,6 +123,7 @@ custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 0.235294 )
 text = "100"
 align = 2
+valign = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -205,7 +203,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/normal = SubResource( 3 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 7 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -214,7 +212,7 @@ group = null
 text = "next level"
 flat = false
 align = 1
-_sections_unfolded = [ "Margin", "Material", "Theme", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
 
 [node name="sfxSolved" type="AudioStreamPlayer" parent="." index="6"]
 

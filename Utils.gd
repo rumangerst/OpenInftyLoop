@@ -4,6 +4,11 @@
 
 const EULER = 2.718281828459045
 
+# DPI operations
+static func cm2px(cm):
+	var inch = 0.393701 * cm
+	return OS.get_screen_dpi() * inch
+
 # Volume operations
 static func volume2percent(db):
 	db = clamp(db, -60, 0)

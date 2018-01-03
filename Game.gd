@@ -36,6 +36,7 @@ func _ready():
 		
 	# Resolution dependent update
 	get_viewport().connect("size_changed", self, "update_responsive_ui")
+	update_responsive_ui()
 	
 	# Load translations
 	$FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel.text = tr("NEXT_LEVEL")
@@ -50,12 +51,26 @@ func _process(delta):
 	if Input.is_action_just_released("ui_cancel"):
 		preferences_show()
 	
+	
+func _notification(what):
+	
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		if current_game_id != null:
+			current_level_store()
+	elif what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		if current_game_id != null:
+			current_level_store()
 
 		
 # Functions for responsive UI
 func update_responsive_ui():
-	pass
 	
+	# Responsive font for level number
+	$Level.get("custom_fonts/font").size = Utils.cm2px(5.0)
+	$Level.get("custom_fonts/font").extra_spacing_bottom = -Utils.cm2px(5.0 / 3.5)
+	
+	# Responsive next level button
+	$FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel.get("custom_fonts/font").size = Utils.cm2px(1.5)
 
 # Game control functions
 func game_switch_to(game_id):
@@ -64,6 +79,8 @@ func game_switch_to(game_id):
 	
 	if current_game_id == game_id:
 		return
+	if current_game_id != null:
+		current_level_store()
 	
 	current_game_id = game_id	
 	
@@ -82,12 +99,13 @@ func game_start_level():
 func game_level_solved():
 	
 	if(game_is_generating):
-		return
-		
+		return	
+	
 	$GamePreferences.preferences_hide()
 		
 	$sfxSolved.play()
 	
+	current_level_clear()
 	game_set_level(game_get_level() + 1)
 	game_save_progress()
 	
@@ -97,11 +115,13 @@ func game_reset():
 	$GamePreferences.preferences_hide()
 	game_set_level(0)
 	game_save_progress()
+	current_level_clear()
 	load_suitable_map()
 	$sfxLoad.play()
 	
 func game_regenerate():
 	$GamePreferences.preferences_hide()
+	current_level_clear()
 	load_suitable_map()
 	$sfxLoad.play()
 	
@@ -172,7 +192,12 @@ func load_game_definition(filename):
 	
 
 # Loads the highest (by order within game definition) map that meets the requirements
-func load_suitable_map():	
+# Also attempts to restore if available
+func load_suitable_map():
+	
+	if current_level_restore():
+		return
+	
 	for definition in available_games[current_game_id]["ramp"]:
 		if game_get_level() >= definition["required-level"]:
 			load_map_from_ramp(definition)			
@@ -225,4 +250,35 @@ func apply_map_color():
 	get_node("Map").map_color = game_color
 	get_node("Map").update_map_colors()
 	get_node("FinishedUI/Background").color = Color(game_color.r, game_color.g, game_color.b, 0.5).lightened(0.2)
+	
+# Functions for continuing levels
+func current_level_store():
+	$Map.serialize("user://current_" + current_game_id + ".dat")
+	
+func current_level_restore():
+	game_is_generating = true
+	var savegame = "user://current_" + current_game_id + ".dat"
+	var dir = Directory.new()
+	
+	if dir.file_exists(savegame):
+		$Map.deserialize(savegame)
+		
+		# Flush!
+		get_node("Map").flush_tiles()
+		
+		# Set color
+		apply_map_color()
+		
+		game_is_generating = false
+		return true
+	else:
+		game_is_generating = false
+		return false
+	
+func current_level_clear():
+	var savegame = "user://current_" + current_game_id + ".dat"
+	var dir = Directory.new()
+	
+	if dir.file_exists(savegame):
+		dir.remove(savegame)
 	
