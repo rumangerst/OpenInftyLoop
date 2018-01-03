@@ -24,6 +24,11 @@ window/handheld/orientation="sensor_portrait"
 
 theme/use_hidpi=true
 
+[locale]
+
+translations=PoolStringArray( "res://translations.en.translation", "res://translations.de.translation" )
+locale_filter=[ 0, [  ] ]
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

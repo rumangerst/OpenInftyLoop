@@ -1,0 +1,17 @@
+{
+	"name" : "Simple 17x15",
+	"id" : "simple17x15",
+	"ramp" : [
+		{ 
+			"required-level" : 0, 
+			 "generator" : { 
+				"id" : "pathfinder", 
+				"width" : 17,
+				"height" : 15,
+				"min-line-length" : 16,
+				"min-coverage" : 96,
+				"min-paths" : 8
+			} 
+		}
+	]
+} 

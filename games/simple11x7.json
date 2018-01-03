@@ -1,0 +1,17 @@
+{
+	"name" : "Simple 11x7",
+	"id" : "simple11x7",
+	"ramp" : [
+		{ 
+			"required-level" : 0, 
+			 "generator" : { 
+				"id" : "pathfinder", 
+				"width" : 11,
+				"height" : 7,
+				"min-line-length" : 10,
+				"min-coverage" : 32,
+				"min-paths" : 1
+			} 
+		}
+	]
+} 

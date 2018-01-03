@@ -5,3 +5,4 @@ RESET_PROGRESS,reset progress,fortschritt zurücksetzen
 VOLUME_GENERAL,general volume,allgemeine lautstärke
 VOLUME_SFX,effect volume,effektlautstärke
 VOLUME_MUSIC,music volume,musiklautstärke
+EXIT,exit,beenden

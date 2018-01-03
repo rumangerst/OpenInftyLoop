@@ -1,4 +1,7 @@
 [
 	"res://games/default.json",
-	"res://games/simple5x5.json"
+	"res://games/simple5x5.json",
+	"res://games/simple11x7.json",
+	"res://games/simple15x9.json",
+	"res://games/simple17x15.json"
 ] 
