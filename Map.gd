@@ -7,6 +7,11 @@ var map_height = 0
 var map_tiles = []
 var map_color = Color(0,0,0)
 
+var min_map_x = 999
+var max_map_x = -1
+var min_map_y = 999
+var max_map_y = -1
+
 signal map_solved # Triggered if the map is solved
 signal map_update_color_data(map_color, entropy) # triggered if the color changes
 
@@ -30,6 +35,11 @@ func initialize_map(width, height):
 	map_width = width
 	map_height = height
 	
+	min_map_x = map_width
+	max_map_x = -1
+	min_map_y = map_height
+	max_map_y = -1
+	
 func clear_map():
 	
 	for i in range(len(map_tiles)):
@@ -37,6 +47,11 @@ func clear_map():
 		if(child != null):
 			child.queue_free()
 			map_tiles[i] = null
+			
+	min_map_x = map_width
+	max_map_x = -1
+	min_map_y = map_height
+	max_map_y = -1
 			
 
 func update_map_colors():
@@ -57,38 +72,62 @@ func update_map_colors():
 	
 	# Update the entropy
 	emit_signal("map_update_color_data", map_color, entropy)
-		
+
+#
+# Applies changes from add_tiles()
+#
+func flush_tiles():	
+	for x in range(map_width):
+		for y in range(map_height):
+			var tile = get_tile(x,y)
+			if(tile != null):
+				update_tile_position(x, y)
+				$Tiles.add_child(tile)
+				
+				tile.connect("updated_tile_rotation", self, "check_if_solved")
+				tile.connect("updated_tile_rotation", self, "update_map_colors")
 
 func update_tile_position(x,y):
 	
 	var available_width = rect_size.x - tile_margins[0] - tile_margins[2]
 	var available_height = rect_size.y - tile_margins[1] - tile_margins[3]
 	
+	var eff_map_width = max_map_x - min_map_x + 1
+	var eff_map_height = max_map_y - min_map_y + 1
+	var eff_x = x - min_map_x
+	var eff_y = y - min_map_y
+	
 	var tile = get_tile(x,y)
-	var tile_size = round(min(128, min(available_width / map_width, available_height / map_height)))
+	var tile_size = round(min(128, min(available_width / eff_map_width, available_height / eff_map_height)))
 	
 	
 	if(tile != null):
 		tile.rect_size = Vector2(tile_size, tile_size)
 		tile.rect_pivot_offset = Vector2(tile_size / 2.0, tile_size / 2.0)
-		tile.rect_position = Vector2(x * tile_size, y * tile_size) + rect_size / 2.0 - Vector2(map_width * tile_size, map_height * tile_size) / 2.0
+		tile.rect_position = Vector2(eff_x * tile_size, eff_y * tile_size) + rect_size / 2.0 - Vector2(eff_map_width * tile_size, eff_map_height * tile_size) / 2.0
 	
-	
+
+# 
+# Registers a tile
+# Note: Use flush_tiles() to activate the tiles!
+#
 func add_tile(tile_type, tile_rotation, x, y):
 	
+	# Update the map borders
+	min_map_x = min(min_map_x, x)
+	max_map_x = max(max_map_x, x)
+	min_map_y = min(min_map_y, y)
+	max_map_y = max(max_map_y, y)
+	
 	remove_tile(x,y)
-	print("Adding tile of type " + tile_type + " with rotation " + str(tile_rotation) + " to " + str(x) + ", " + str(y))
+	#print("Adding tile of type " + tile_type + " with rotation " + str(tile_rotation) + " to " + str(x) + ", " + str(y))
 	
 	var tile = load("Tile.tscn").instance()
 	map_tiles[x + y * map_width] = tile
 	tile.set_tile_type(tile_type)
 	tile.set_tile_rotation(tile_rotation)
-	tile.set_name("tile" + str(x) + "_" + str(y))
-	update_tile_position(x, y)
+	tile.set_name("tile" + str(x) + "_" + str(y))	
 	
-	get_node("Tiles").add_child(tile)
-	tile.connect("updated_tile_rotation", self, "check_if_solved")
-	tile.connect("updated_tile_rotation", self, "update_map_colors")
 	
 	
 func get_tile(x,y):

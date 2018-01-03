@@ -40,133 +40,111 @@
 		{ 
 			"required-level" : 5, 
 			 "generator" : { 
-				"id" : "random", 
+				"id" : "pathfinder", 
 				"width" : 5,
 				"height" : 5,
-				"min-generated-lines" : 2,
-				"min-line-length" : 5,
-				"max-bouncing" : 4
+				"min-line-length" : 8,
+				"min-coverage" : 10,
+				"min-paths" : 1
 			} 
 		},
 		{ 
 			"required-level" : 10, 
 			 "generator" : { 
-				"id" : "random", 
+				"id" : "pathfinder", 
 				"width" : 7,
 				"height" : 5,
-				"min-generated-lines" : 3,
-				"min-line-length" : 5,
-				"max-bouncing" : 4
+				"min-line-length" : 8,
+				"min-coverage" : 20,
+				"min-paths" : 1
 			} 
 		},
 		{ 
 			"required-level" : 15, 
 			 "generator" : { 
-				"id" : "random", 
+				"id" : "pathfinder", 
 				"width" : 9,
 				"height" : 5,
-				"min-generated-lines" : 3,
-				"min-line-length" : 7,
-				"max-bouncing" : 4
+				"min-line-length" : 10,
+				"min-coverage" : 25,
+				"min-paths" : 1
 			} 
 		},
 		{ 
 			"required-level" : 20, 
 			 "generator" : { 
-				"id" : "random", 
+				"id" : "pathfinder", 
 				"width" : 11,
-				"height" : 5,
-				"min-generated-lines" : 4,
-				"min-line-length" : 7,
-				"max-bouncing" : 4
+				"height" : 7,
+				"min-line-length" : 10,
+				"min-coverage" : 32,
+				"min-paths" : 2
 			} 
 		},
 		{ 
 			"required-level" : 25, 
 			 "generator" : { 
-				"id" : "random", 
+				"id" : "pathfinder", 
 				"width" : 13,
-				"height" : 5,
-				"min-generated-lines" : 4,
-				"min-line-length" : 7,
-				"max-bouncing" : 4
+				"height" : 7,
+				"min-line-length" : 12,
+				"min-coverage" : 39,
+				"min-paths" : 3
 			} 
 		},
 		{ 
 			"required-level" : 30, 
 			 "generator" : { 
-				"id" : "random", 
+				"id" : "pathfinder", 
 				"width" : 15,
-				"height" : 5,
-				"min-generated-lines" : 5,
-				"min-line-length" : 7,
-				"max-bouncing" : 4
+				"height" : 9,
+				"min-line-length" : 12,
+				"min-coverage" : 48,
+				"min-paths" : 5
 			} 
 		},
 		{ 
 			"required-level" : 35, 
 			 "generator" : { 
-				"id" : "random", 
-				"width" : 15,
-				"height" : 7,
-				"min-generated-lines" : 5,
-				"min-line-length" : 7,
-				"max-bouncing" : 4
+				"id" : "pathfinder", 
+				"width" : 17,
+				"height" : 9,
+				"min-line-length" : 14,
+				"min-coverage" : 57,
+				"min-paths" : 6
 			} 
 		},
 		{ 
 			"required-level" : 40, 
 			 "generator" : { 
-				"id" : "random", 
-				"width" : 15,
-				"height" : 9,
-				"min-generated-lines" : 6,
-				"min-line-length" : 10,
-				"max-bouncing" : 6
+				"id" : "pathfinder", 
+				"width" : 17,
+				"height" : 11,
+				"min-line-length" : 14,
+				"min-coverage" : 68,
+				"min-paths" : 7
 			} 
 		},
 		{ 
 			"required-level" : 45, 
 			 "generator" : { 
-				"id" : "random", 
-				"width" : 15,
-				"height" : 11,
-				"min-generated-lines" : 6,
-				"min-line-length" : 10,
-				"max-bouncing" : 6
+				"id" : "pathfinder", 
+				"width" : 17,
+				"height" : 13,
+				"min-line-length" : 16,
+				"min-coverage" : 81,
+				"min-paths" : 7
 			} 
 		},
 		{ 
 			"required-level" : 50, 
 			 "generator" : { 
-				"id" : "random", 
-				"width" : 15,
-				"height" : 13,
-				"min-generated-lines" : 6,
-				"min-line-length" : 10,
-				"max-bouncing" : 6
-			} 
-		},
-		{ 
-			"required-level" : 55, 
-			 "generator" : { 
-				"id" : "random", 
-				"width" : 15,
-				"height" : 15,
-				"min-generated-lines" : 6,
-				"min-line-length" : 10,
-				"max-bouncing" : 6
-			} 
-		},
-		{ 
-			"required-level" : 60, 
-			 "generator" : { 
-				"id" : "random", 
+				"id" : "pathfinder", 
 				"width" : 17,
 				"height" : 15,
-				"min-generated-lines" : 8,
-				"min-line-length" : 10,
-				"max-bouncing" : 10
+				"min-line-length" : 16,
+				"min-coverage" : 96,
+				"min-paths" : 8
 			} 
 		}
 	]

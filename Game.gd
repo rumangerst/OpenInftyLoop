@@ -3,6 +3,7 @@ extends Container
 const Utils = preload("res://Utils.gd")
 const MapGenerator_Preset = preload("res://map_generators/preset.gd")
 const MapGenerator_Random = preload("res://map_generators/random.gd")
+const MapGenerator_Pathfinder = preload("res://map_generators/pathfinder.gd")
 
 var game_ramp = []
 var game_is_generating = false
@@ -14,12 +15,13 @@ func _ready():
 	get_node("Map").connect("map_solved", self, "game_level_solved")
 	get_node("Map").connect("map_update_color_data", get_node("MapBackground"), "update_color_data")
 	get_node("FinishedUI/VBoxContainer/buttonNextLevel").connect("button_down", self, "game_start_level")
-	$GameUI/gameOptionsPanel/VBoxContainer/buttonResetProgress.connect("button_down", self, "game_reset")
 	
 	# Game options
 	preferences_load()
 	$GameUI/buttonGameOptions.connect("button_down", self, "preferences_show")
-	$GameUI/gameOptionsPanel/buttonCloseGameOptions.connect("button_down", $GameUI/gameOptionsPanel, "hide")
+	$GameUI/gameOptionsPanel/buttonCloseGameOptions.connect("button_down", $GameUI/gameOptionsPanel, "hide")	
+	$GameUI/gameOptionsPanel/VBoxContainer/buttonResetProgress.connect("button_down", self, "game_reset")
+	$GameUI/gameOptionsPanel/VBoxContainer/buttonRestartMap.connect("button_down", self, "game_regenerate")
 	$GameUI/gameOptionsPanel/VBoxContainer/sliderVolume.connect("value_changed", self, "preferences_volume_changed")
 	$GameUI/gameOptionsPanel/VBoxContainer/sliderSFXVolume.connect("value_changed", self, "preferences_SFXVolume_changed")
 	$GameUI/gameOptionsPanel/VBoxContainer/sliderMusicVolume.connect("value_changed", self, "preferences_MusicVolume_changed")
@@ -116,6 +118,11 @@ func game_reset():
 	load_suitable_map()
 	$sfxLoad.play()
 	
+func game_regenerate():
+	$GameUI/gameOptionsPanel.hide()
+	load_suitable_map()
+	$sfxLoad.play()
+	
 func game_save_progress():
 	
 	game_progress["current-game-id"] = game_id
@@ -190,6 +197,16 @@ func load_map_from_ramp(definition):
 		get_node("Map").initialize_map(width, height)
 		MapGenerator_Random.map_generator(get_node("Map"), min_generated_lines, min_line_length, max_bouncing)
 		
+	elif(definition["generator"]["id"] == "pathfinder"):
+		var width = int(definition["generator"]["width"])
+		var height = int(definition["generator"]["height"])
+		var min_line_length = int(definition["generator"]["min-line-length"])
+		var min_coverage = int(definition["generator"]["min-coverage"])
+		var min_paths = int(definition["generator"]["min-paths"])
+		
+		get_node("Map").initialize_map(width, height)
+		MapGenerator_Pathfinder.map_generator(get_node("Map"), min_coverage, min_line_length, min_paths)
+		
 	elif(definition["generator"]["id"] == "preset"):
 		var filename = definition["generator"]["file"]
 		MapGenerator_Preset.map_generator(get_node("Map"), filename)
@@ -197,6 +214,9 @@ func load_map_from_ramp(definition):
 	else:
 		print("Unknown generator " + str(definition["generator"]["id"]))
 		
+	# Flush!
+	get_node("Map").flush_tiles()
+	
 	# Set color
 	apply_map_color()
 		
