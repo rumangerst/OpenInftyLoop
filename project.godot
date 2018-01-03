@@ -12,7 +12,12 @@ config_version=3
 
 config/name="OpenInftyLoop"
 run/main_scene="res://Game.tscn"
+boot_splash/image="res://gfx/splash.png"
 config/icon="res://icon.png"
+
+[display]
+
+window/handheld/orientation="sensor_portrait"
 
 [rendering]
 
