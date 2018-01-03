@@ -66,16 +66,16 @@ func preferences_load():
 		
 		# Load volume
 		if "volume" in data.keys():
-			var volume = clamp(data["volume"], -60, 0)
-			AudioServer.set_bus_volume_db(0, volume)
+			var volume = (data["volume"])
+			AudioServer.set_bus_volume_db(0, Utils.percent2volume(volume))
 			$GameUI/gameOptionsPanel/VBoxContainer/sliderVolume.value = volume
 		if "sfx_volume" in data.keys():
-			var volume = clamp(data["sfx_volume"], -60, 0)
-			AudioServer.set_bus_volume_db(2, volume)
+			var volume = (data["sfx_volume"])
+			AudioServer.set_bus_volume_db(2, Utils.percent2volume(volume))
 			$GameUI/gameOptionsPanel/VBoxContainer/sliderSFXVolume.value = volume
 		if "music_volume" in data.keys():
-			var volume = clamp(data["music_volume"], -60, 0)
-			AudioServer.set_bus_volume_db(1, volume)
+			var volume = (data["music_volume"])
+			AudioServer.set_bus_volume_db(1, Utils.percent2volume(volume))
 			$GameUI/gameOptionsPanel/VBoxContainer/sliderMusicVolume.value = volume
 			
 		# Load current game
@@ -88,9 +88,9 @@ func preferences_load():
 func preferences_save():
 	
 	var data = {
-		volume = AudioServer.get_bus_volume_db(0),
-		sfx_volume = AudioServer.get_bus_volume_db(2),
-		music_volume = AudioServer.get_bus_volume_db(1),
+		volume = Utils.volume2percent(AudioServer.get_bus_volume_db(0)),
+		sfx_volume = Utils.volume2percent(AudioServer.get_bus_volume_db(2)),
+		music_volume = Utils.volume2percent(AudioServer.get_bus_volume_db(1)),
 		game = current_game_id
 		}
 	
@@ -100,17 +100,20 @@ func preferences_save():
 	file.close()
 	
 func preferences_volume_changed(volume):
-	volume = clamp(volume, -60, 0)
+	volume = Utils.percent2volume(volume)
+	
 	AudioServer.set_bus_volume_db(0, volume)
 	preferences_save()
 	
 func preferences_SFXVolume_changed(volume):
-	volume = clamp(volume, -60, 0)
+	volume = Utils.percent2volume(volume)
+	
 	AudioServer.set_bus_volume_db(2, volume)
 	preferences_save()
 
 func preferences_MusicVolume_changed(volume):
-	volume = clamp(volume, -60, 0)
+	volume = Utils.percent2volume(volume)
+	
 	AudioServer.set_bus_volume_db(1, volume)
 	preferences_save()
 	

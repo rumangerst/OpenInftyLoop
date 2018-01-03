@@ -2,6 +2,21 @@
 # Some utilities
 #
 
+const EULER = 2.718281828459045
+
+# Volume operations
+static func volume2percent(db):
+	db = clamp(db, -60, 0)
+	return (60 + db) / 60.0
+	
+static func percent2volume(percent):
+	percent = clamp(percent, 0, 1)
+	return lerp(-60, 0, percent)
+
+# log to 10 base
+static func log10(x):
+	return log(x) / log(10)
+
 # HSV within 0 ... 1
 static func hsv2rgb(h, s, v):
 	
