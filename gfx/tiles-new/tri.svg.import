@@ -2,11 +2,11 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/menu_hover.svg-1eebc17b70dc9cf0fe134fd4cc124f06.stex"
+path="res://.import/tri.svg-0d79c3c81777b642c5e9b33e73c4b096.stex"
 
 [deps]
 
-source_md5="4ac31011dee72f0fb5f48a654e10ab0f"
+source_md5="62059a54e16d8de13835bab2c4ae68b1"
 
 [params]
 
@@ -16,7 +16,7 @@ compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true

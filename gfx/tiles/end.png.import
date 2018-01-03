@@ -6,7 +6,7 @@ path="res://.import/end.png-3c01ca268c7a86e8d1aed93d3c5845d6.stex"
 
 [deps]
 
-source_md5="879d686945710ba6bedcf3c0c0de7773"
+source_md5="0a421f8897bf8a96de4b6eaa26d88798"
 
 [params]
 
@@ -16,8 +16,8 @@ compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
+flags/mipmaps=true
+flags/anisotropic=true
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

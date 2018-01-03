@@ -98,7 +98,7 @@ func update_tile_position(x,y):
 	var eff_y = y - min_map_y
 	
 	var tile = get_tile(x,y)
-	var tile_size = round(min(128, min(available_width / eff_map_width, available_height / eff_map_height)))
+	var tile_size = round(min(256, min(available_width / eff_map_width, available_height / eff_map_height)))
 	
 	
 	if(tile != null):

@@ -6,7 +6,7 @@ path="res://.import/tri.png-72d8bbe7adad7a6678e30abede427d7b.stex"
 
 [deps]
 
-source_md5="f9d9f2219863c5e791f49e04945c7d96"
+source_md5="ac3fd46d7a6918b75824569e9aa75c7e"
 
 [params]
 
@@ -16,8 +16,8 @@ compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
+flags/mipmaps=true
+flags/anisotropic=true
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

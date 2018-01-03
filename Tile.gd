@@ -1,10 +1,10 @@
 extends TextureButton
 
-var texture_cross = preload("res://gfx/tiles/cross.png")
-var texture_curve = preload("res://gfx/tiles/curve.png")
-var texture_end = preload("res://gfx/tiles/end.png")
-var texture_straight = preload("res://gfx/tiles/straight.png")
-var texture_tri = preload("res://gfx/tiles/tri.png")
+var texture_cross = preload("res://gfx/tiles-new-2/cross.svg")
+var texture_curve = preload("res://gfx/tiles-new-2/curve.svg")
+var texture_end = preload("res://gfx/tiles-new-2/end.svg")
+var texture_straight = preload("res://gfx/tiles-new-2/straight.svg")
+var texture_tri = preload("res://gfx/tiles-new-2/tri.svg")
 
 var rotation_animation_speed = 500
 var color_animation_speed = 1

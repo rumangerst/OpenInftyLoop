@@ -20,7 +20,8 @@ var game_is_initializing = true
 func _ready():	
 	get_node("Map").connect("map_solved", self, "game_level_solved")
 	get_node("Map").connect("map_update_color_data", get_node("MapBackground"), "update_color_data")
-	get_node("FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel").connect("button_down", self, "game_start_level")
+	get_node("FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel").connect("button_down", self, "game_start_level")	
+	get_node("FinishedUI/buttonNextLevel2").connect("button_down", self, "game_start_level")
 	
 	# Load available games and the progress
 	load_all_game_definitions()
@@ -39,7 +40,7 @@ func _ready():
 	update_responsive_ui()
 	
 	# Load translations
-	$FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel.text = tr("NEXT_LEVEL")
+	#$FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel.text = tr("NEXT_LEVEL")
 	
 	
 func _process(delta):
@@ -70,7 +71,10 @@ func update_responsive_ui():
 	$Level.get("custom_fonts/font").extra_spacing_bottom = -Utils.cm2px(5.0 / 3.5)
 	
 	# Responsive next level button
-	$FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel.get("custom_fonts/font").size = Utils.cm2px(1.5)
+	var available = rect_size
+	
+	var button_size = min(min(rect_size.x, rect_size.y) / 4.0, Utils.cm2px(4))
+	$FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel.rect_min_size = Vector2(button_size, button_size)
 
 # Game control functions
 func game_switch_to(game_id):
@@ -253,6 +257,10 @@ func apply_map_color():
 	
 # Functions for continuing levels
 func current_level_store():
+	
+	if $Map.is_solved():
+		return
+	
 	$Map.serialize("user://current_" + current_game_id + ".dat")
 	
 func current_level_restore():

@@ -6,10 +6,11 @@
 [ext_resource path="res://Map.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GamePreferences.tscn" type="PackedScene" id=5]
 [ext_resource path="res://gfx/ui/theme.tres" type="Theme" id=6]
-[ext_resource path="res://gfx/fonts/oxygen-button-large.tres" type="DynamicFont" id=7]
-[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=8]
-[ext_resource path="res://sfx/load.sample" type="AudioStream" id=9]
-[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=10]
+[ext_resource path="res://gfx/ui/play.svg" type="Texture" id=7]
+[ext_resource path="res://gfx/ui/play_hover.svg" type="Texture" id=8]
+[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=9]
+[ext_resource path="res://sfx/load.sample" type="AudioStream" id=10]
+[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=11]
 
 [sub_resource type="Animation" id=1]
 
@@ -53,35 +54,6 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
-
-[sub_resource type="StyleBoxFlat" id=2]
-
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
-bg_color = Color( 0.8125, 0.8125, 0.8125, 1 )
-draw_center = true
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 1, 1, 1, 1 )
-border_blend = false
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-corner_detail = 8
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
-shadow_color = Color( 0, 0, 0, 0.6 )
-shadow_size = 0
-anti_aliasing = true
-anti_aliasing_size = 1
-_sections_unfolded = [ "Border", "Border Width", "Corner Radius" ]
 
 [node name="Game" type="Container" index="0"]
 
@@ -163,7 +135,7 @@ size_flags_vertical = 1
 color = Color( 0.474382, 0.226593, 0.773438, 0.501961 )
 _sections_unfolded = [ "Margin" ]
 
-[node name="CenterContainer" type="CenterContainer" parent="FinishedUI" index="1"]
+[node name="buttonNextLevel2" type="TextureButton" parent="FinishedUI" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -173,7 +145,25 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+expand = true
+_sections_unfolded = [ "Textures" ]
+
+[node name="CenterContainer" type="CenterContainer" parent="FinishedUI" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
 use_top_left = false
+_sections_unfolded = [ "Mouse" ]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FinishedUI/CenterContainer" index="0"]
 
@@ -181,42 +171,45 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 356.0
-margin_top = 264.0
-margin_right = 668.0
-margin_bottom = 336.0
+margin_left = 487.0
+margin_top = 275.0
+margin_right = 537.0
+margin_bottom = 325.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 0
 
-[node name="buttonNextLevel" type="Button" parent="FinishedUI/CenterContainer/VBoxContainer" index="0"]
+[node name="buttonNextLevel" type="TextureButton" parent="FinishedUI/CenterContainer/VBoxContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 312.0
-margin_bottom = 72.0
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/normal = SubResource( 2 )
-custom_fonts/font = ExtResource( 7 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "next level"
-flat = false
-align = 1
-_sections_unfolded = [ "Material", "Size Flags", "Theme", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+texture_disabled = ExtResource( 7 )
+texture_focused = ExtResource( 7 )
+expand = true
+stretch_mode = 4
+_sections_unfolded = [ "Margin", "Material", "Rect", "Size Flags", "Textures", "Theme", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
 
 [node name="sfxSolved" type="AudioStreamPlayer" parent="." index="6"]
 
-stream = ExtResource( 8 )
+stream = ExtResource( 9 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -225,7 +218,7 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="sfxLoad" type="AudioStreamPlayer" parent="." index="7"]
 
-stream = ExtResource( 9 )
+stream = ExtResource( 10 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -233,7 +226,7 @@ bus = "SFX"
 
 [node name="sfxMusic" type="AudioStreamPlayer" parent="." index="8"]
 
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 volume_db = 0.0
 autoplay = true
 mix_target = 0

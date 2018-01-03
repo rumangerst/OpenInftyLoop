@@ -6,7 +6,7 @@ path="res://.import/cross.png-c5d62d9c282b3b0071233d95aab91978.stex"
 
 [deps]
 
-source_md5="474208506c7c0f63f99815fd8f79fae9"
+source_md5="f6b7e0ffc27d4b547ade54a6abeba98e"
 
 [params]
 
@@ -16,8 +16,8 @@ compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
+flags/mipmaps=true
+flags/anisotropic=true
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false

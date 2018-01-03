@@ -6,7 +6,7 @@ path="res://.import/curve.png-6ea04a9891aa2f9291b3ed0d72a20423.stex"
 
 [deps]
 
-source_md5="570f3426953fbbb6ce199b5286315f5a"
+source_md5="644d92ac5c4c206a55b2db09ed0fc089"
 
 [params]
 
@@ -16,8 +16,8 @@ compress/hdr_mode=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
+flags/mipmaps=true
+flags/anisotropic=true
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
