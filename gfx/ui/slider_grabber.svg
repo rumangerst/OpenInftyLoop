@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="128"
-   height="128"
-   viewBox="0 0 33.866666 33.866668"
+   width="40"
+   height="40"
+   viewBox="0 0 10.583333 10.583334"
    version="1.1"
    id="svg8"
-   sodipodi:docname="close.svg"
+   sodipodi:docname="slider_grabber.svg"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    inkscape:export-filename="/home/ruman/Projects/OpenInftyLoop/gfx/tiles/end.png"
    inkscape:export-xdpi="150"
@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="64.504075"
-     inkscape:cy="41.554422"
+     inkscape:zoom="11.2"
+     inkscape:cx="16.647084"
+     inkscape:cy="17.600359"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -42,9 +42,9 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
+     inkscape:snap-nodes="true"
      inkscape:snap-bbox="true"
-     inkscape:snap-bbox-midpoints="true"
-     inkscape:bbox-nodes="true">
+     inkscape:snap-others="true">
     <sodipodi:guide
        position="33.866666,16.933333"
        orientation="1,0"
@@ -53,8 +53,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid12"
-       spacingx="4.2333334"
-       spacingy="4.2333334" />
+       spacingx="1.3229167"
+       spacingy="1.3229167" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -72,27 +72,12 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-263.13332)">
+     transform="translate(0,-286.41665)">
     <circle
-       style="fill:#ffffff;stroke:#1c1c1c;stroke-width:4.83809519;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;stroke:#1c1c1c;stroke-width:1.32291669;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path16"
-       cx="16.933334"
-       cy="280.06665"
-       r="14.514285" />
-    <g
-       id="g824"
-       transform="matrix(0.87160103,0,0,0.87160103,-1.5155557,32.270489)"
-       style="stroke:#1c1c1c;stroke-opacity:1">
-      <path
-         inkscape:connector-curvature="0"
-         id="path818"
-         d="m 8.4666667,271.59999 25.4000013,25.4"
-         style="fill:none;fill-rule:evenodd;stroke:#1c1c1c;stroke-width:5.29166651;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         inkscape:connector-curvature="0"
-         id="path820"
-         d="m 8.4666667,296.99999 25.4000013,-25.4"
-         style="fill:none;fill-rule:evenodd;stroke:#1c1c1c;stroke-width:5.29166651;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
+       cx="5.291667"
+       cy="291.70831"
+       r="3.96875" />
   </g>
 </svg>

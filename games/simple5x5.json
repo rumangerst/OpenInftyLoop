@@ -1,0 +1,17 @@
+{
+	"name" : "Simple 5x5",
+	"id" : "simple5x5",
+	"ramp" : [
+		{ 
+			"required-level" : 0, 
+			 "generator" : { 
+				"id" : "pathfinder", 
+				"width" : 5,
+				"height" : 5,
+				"min-line-length" : 10,
+				"min-coverage" : 10,
+				"min-paths" : 1
+			} 
+		}
+	]
+} 

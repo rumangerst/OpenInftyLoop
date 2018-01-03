@@ -5,34 +5,55 @@ const MapGenerator_Preset = preload("res://map_generators/preset.gd")
 const MapGenerator_Random = preload("res://map_generators/random.gd")
 const MapGenerator_Pathfinder = preload("res://map_generators/pathfinder.gd")
 
-var game_ramp = []
-var game_is_generating = false
-var game_id = null
-
+# Contains the progress of each game
 var game_progress = {}
+# Contains the available games
+var available_games = {}
+# The current active game
+var current_game_id = null
+
+# Tracks the phases of the game
+var game_is_generating = false
+var game_is_initializing = true
+
 
 func _ready():	
 	get_node("Map").connect("map_solved", self, "game_level_solved")
 	get_node("Map").connect("map_update_color_data", get_node("MapBackground"), "update_color_data")
 	get_node("FinishedUI/VBoxContainer/buttonNextLevel").connect("button_down", self, "game_start_level")
 	
+	# Load available games and the progress
+	load_all_game_definitions()
+	game_load_progress()
+	game_is_initializing = false
+	
 	# Game options
 	preferences_load()
 	$GameUI/buttonGameOptions.connect("button_down", self, "preferences_show")
-	$GameUI/gameOptionsPanel/buttonCloseGameOptions.connect("button_down", $GameUI/gameOptionsPanel, "hide")	
 	$GameUI/gameOptionsPanel/VBoxContainer/buttonResetProgress.connect("button_down", self, "game_reset")
 	$GameUI/gameOptionsPanel/VBoxContainer/buttonRestartMap.connect("button_down", self, "game_regenerate")
 	$GameUI/gameOptionsPanel/VBoxContainer/sliderVolume.connect("value_changed", self, "preferences_volume_changed")
 	$GameUI/gameOptionsPanel/VBoxContainer/sliderSFXVolume.connect("value_changed", self, "preferences_SFXVolume_changed")
 	$GameUI/gameOptionsPanel/VBoxContainer/sliderMusicVolume.connect("value_changed", self, "preferences_MusicVolume_changed")
+	$GameUI/gameOptionsPanel/VBoxContainer/selectGame.connect("item_selected", self, "preferences_Game_changed")
+	$GameUI/gameOptionsPanel/buttonExit.connect("button_down", get_tree(), "quit")
 	
-	# Initial start
-	load_game("res://games/default.json")
-	game_load_progress()	
-	game_start_level()
+	# Load default game if preferences did not load
+	if current_game_id == null:
+		game_switch_to(available_games.keys()[0])
+		
+	# Resolution dependent update
+	get_viewport().connect("size_changed", self, "update_responsive_ui")
 	
-func _process(delta):	
+	
+func _process(delta):
+	
+	# Update the level counter
 	get_node("Level").text = str(game_get_level() + 1)
+	
+	# Handle input actions
+	if Input.is_action_just_released("ui_cancel"):
+		preferences_show()
 	
 # Handling preferences
 func preferences_load():
@@ -56,13 +77,21 @@ func preferences_load():
 			var volume = clamp(data["music_volume"], -60, 0)
 			AudioServer.set_bus_volume_db(1, volume)
 			$GameUI/gameOptionsPanel/VBoxContainer/sliderMusicVolume.value = volume
+			
+		# Load current game
+		if "game" in data.keys():
+			var game = data["game"]
+			
+			if game in available_games.keys():
+				game_switch_to(game)
 	
 func preferences_save():
 	
 	var data = {
 		volume = AudioServer.get_bus_volume_db(0),
 		sfx_volume = AudioServer.get_bus_volume_db(2),
-		music_volume = AudioServer.get_bus_volume_db(1)
+		music_volume = AudioServer.get_bus_volume_db(1),
+		game = current_game_id
 		}
 	
 	var file = File.new()
@@ -85,13 +114,53 @@ func preferences_MusicVolume_changed(volume):
 	AudioServer.set_bus_volume_db(1, volume)
 	preferences_save()
 	
+func preferences_Game_changed(index):
+	if not game_is_initializing and index >= 0:
+		var id = $GameUI/gameOptionsPanel/VBoxContainer/selectGame.get_item_metadata(index)
+		game_switch_to(id)
+	
 func preferences_show():
 	if(not $GameUI/gameOptionsPanel.visible):
 		$AnimationPlayer.play("ShowOptionsPanelUI")
 	else:
 		$GameUI/gameOptionsPanel.visible = false
+		
+# Functions for responsive UI
+
+func update_responsive_ui():
+	var available = $GameUI.rect_size
+	
+	# The option panel should be responsive
+	if available.x <= 500:
+		$GameUI/gameOptionsPanel.margin_right = available.x
+	else:
+		$GameUI/gameOptionsPanel.margin_right = min(400, available.x)
+	
 
 # Game control functions
+func game_switch_to(game_id):
+	
+	$GameUI/gameOptionsPanel.visible = false
+	
+	if current_game_id == game_id:
+		return
+	
+	current_game_id = game_id	
+	
+	load_suitable_map()
+	game_start_level()
+	
+	# Update the selectize if needed
+	var select = $GameUI/gameOptionsPanel/VBoxContainer/selectGame
+	if select.get_selected_metadata() != game_id:
+		for i in range(select.get_item_count()):
+			if select.get_item_metadata(i) == game_id:
+				select.select(i)
+				break
+	
+	preferences_save()
+	
+
 func game_start_level():	
 	get_node("FinishedUI").visible = false
 	load_suitable_map()
@@ -124,9 +193,6 @@ func game_regenerate():
 	$sfxLoad.play()
 	
 func game_save_progress():
-	
-	game_progress["current-game-id"] = game_id
-	
 	var file = File.new()
 	file.open("user://progress.dat", File.WRITE)
 	file.store_line(to_json(game_progress))
@@ -144,23 +210,36 @@ func game_empty_progress():
 	return { "level" : 0 }
 	
 func game_get_level():	
-	if game_id == null:
+	if current_game_id == null:
 		return -1
-	if not game_id in game_progress.keys():
-		game_progress[game_id] = game_empty_progress()
-	return int(game_progress[game_id]["level"])
+	if not current_game_id in game_progress.keys():
+		game_progress[current_game_id] = game_empty_progress()
+	return int(game_progress[current_game_id]["level"])
 	
 func game_set_level(level):
-	if game_id == null:
+	if current_game_id == null:
 		return
-	if not game_id in game_progress.keys():
-		game_progress[game_id] = game_empty_progress()
-	game_progress[game_id]["level"] = level
+	if not current_game_id in game_progress.keys():
+		game_progress[current_game_id] = game_empty_progress()
+	game_progress[current_game_id]["level"] = level
 	
+	
+# Loads all game definitions from games.json
+func load_all_game_definitions():
+	
+	var file = File.new()
+	file.open("res://games.json", File.READ)
+	var data = parse_json(file.get_as_text())
+	file.close()
+	
+	$GameUI/gameOptionsPanel/VBoxContainer/selectGame.clear()
+	
+	for item in data:
+		load_game_definition(item)
+		
 	
 # Loads a game definition from a file
-func load_game(filename):
-	get_node("Map").clear_map()
+func load_game_definition(filename):
 	
 	# Import the data
 	var file = File.new()
@@ -169,15 +248,20 @@ func load_game(filename):
 	file.close()
 	
 	# Load the information
-	self.game_ramp = data["ramp"]
-	self.game_id = data["id"]
-	self.game_ramp.invert() #!Important!
+	var id = data["id"]
+	data["ramp"].invert() # This is important!
 	
-	load_suitable_map()
+	available_games[id] = data
+	
+	# Add to select
+	var select = $GameUI/gameOptionsPanel/VBoxContainer/selectGame
+	select.add_item(data["name"].to_lower())
+	select.set_item_metadata(select.get_item_count() - 1, id)
+	
 
 # Loads the highest (by order within game definition) map that meets the requirements
 func load_suitable_map():	
-	for definition in game_ramp:
+	for definition in available_games[current_game_id]["ramp"]:
 		if game_get_level() >= definition["required-level"]:
 			load_map_from_ramp(definition)			
 			return
