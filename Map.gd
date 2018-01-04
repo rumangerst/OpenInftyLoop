@@ -6,6 +6,7 @@ var map_width = 0
 var map_height = 0
 var map_tiles = []
 var map_color = Color(0,0,0)
+var map_base_entropy = 0
 
 var min_map_x = 999
 var max_map_x = -1
@@ -52,10 +53,15 @@ func clear_map():
 	max_map_x = -1
 	min_map_y = map_height
 	max_map_y = -1
+	map_base_entropy = 0
 			
 
 func update_map_colors():
 	var entropy = get_entropy()
+	
+	# We correct the entropy according to base entropy
+	entropy = clamp(entropy, -1, map_base_entropy)
+	entropy = -((entropy - map_base_entropy) / (-1.0 - map_base_entropy))
 	
 	# Update tile colors
 	var tile_color = Color(0,0,0).linear_interpolate(map_color, -entropy).darkened(0.5)
@@ -86,6 +92,9 @@ func flush_tiles():
 				
 				tile.connect("updated_tile_rotation", self, "check_if_solved")
 				tile.connect("updated_tile_rotation", self, "update_map_colors")
+	
+	if map_base_entropy == 0:
+		map_base_entropy = get_entropy()
 
 func update_tile_position(x,y):
 	
@@ -249,7 +258,8 @@ func serialize(filename):
 	var data = {
 		tiles = tile_list,
 		width = map_width,
-		height = map_height
+		height = map_height,
+		base_entropy = map_base_entropy
 	}
 		
 	var savegame = File.new()
@@ -265,6 +275,7 @@ func deserialize(filename):
 	
 	var width = data["width"]
 	var height = data["height"]
+	var base_entropy = data["base_entropy"] if "base_entropy" in data.keys() else 0
 	
 	initialize_map(width, height)
 	
@@ -276,4 +287,6 @@ func deserialize(filename):
 		var rotation = int(tiledata["rotation"])
 		
 		add_tile(type, rotation, x, y)
+		
+	map_base_entropy = base_entropy
 
