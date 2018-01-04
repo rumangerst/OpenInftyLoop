@@ -1,0 +1,100 @@
+# This is an example PKGBUILD file. Use this as a start to creating your own,
+# and remove these comments. For more information, see 'man PKGBUILD'.
+# NOTE: Please fill out the license field for your package! If it is unknown,
+# then please put 'unknown'.
+
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=openinftyloop
+pkgver=1.2.0.0
+pkgrel=1
+epoch=
+pkgdesc="Simple puzzle game"
+arch=('x86_64')
+url="https://rumangerst.github.io/OpenInftyLoop/"
+license=('GPL3')
+groups=()
+depends=('libxinerama' 'libpulse' 'libxcursor' 'libxrandr' 'libglvnd')
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("https://github.com/rumangerst/OpenInftyLoop/releases/download/$pkgver/OpenInftyLoop-Windows-Linux.zip")
+noextract=()
+md5sums=("fd7d1c4a656c85db8187463a9361e960")
+validpgpkeys=()
+
+prepare() {
+	
+	# Rename the game files
+	rm -r openinftyloop
+	mv OpenInftyLoop openinftyloop
+	
+	# Move icon
+	mv openinftyloop/icon.svg openinftyloop.svg
+	
+	# Remove unnecessary files
+	rm openinftyloop/OpenInftyLoop.exe
+	rm openinftyloop/README.txt
+	rm openinftyloop/LICENSE.txt
+	rm openinftyloop/icon.ico
+	rm openinftyloop/icon.png
+	rm openinftyloop/OpenInftyLoop.x86
+}
+
+build() {
+	# Create the starter
+	cat > openinftyloop.sh <<EOL
+#!/bin/bash
+cd /usr/share/openinftyloop
+./OpenInftyLoop.x86_64
+EOL
+	
+	# Create the desktop file
+	cat > openinftyloop.desktop <<EOL
+[Desktop Entry]
+Exec=openinftyloop
+Comment=A simple puzzle game
+Icon=openinftyloop
+Name=OpenInftyLoop
+Categories=Game;LogicGame;
+Terminal=false
+StartupNotify=true
+EOL
+}
+
+check() {
+	
+	# Check supplemental files
+	for file in openinftyloop.sh openinftyloop.svg openinftyloop.desktop; do
+		if [ ! -e $file ]; then
+			exit 1
+		fi
+	done
+	
+	# Check game files
+	cd openinftyloop
+	
+	for file in OpenInftyLoop.pck OpenInftyLoop.x86_64; do
+		if [ ! -e $file ]; then
+			exit 1
+		fi
+	done	
+}
+
+package() {
+	mkdir -p "$pkgdir/usr/share"
+	mkdir -p "$pkgdir/usr/share/applications"
+	mkdir -p "$pkgdir/usr/bin"
+	mkdir -p "$pkgdir/usr/share/pixmaps"
+	
+	cp -r openinftyloop "$pkgdir/usr/share/"
+	cp openinftyloop.sh "$pkgdir/usr/bin/openinftyloop"
+	cp openinftyloop.svg "$pkgdir/usr/share/pixmaps/openinftyloop.svg"
+	cp openinftyloop.desktop "$pkgdir/usr/share/applications/"
+}
