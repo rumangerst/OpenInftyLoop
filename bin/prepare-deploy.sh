@@ -2,12 +2,12 @@
 
 echo "Creating deployment env"
 
-mkdir assets-win-linux
-mkdir godot-win-linux
-mkdir mac
+mkdir assets-win
+mkdir assets-linux
+mkdir osx
 mkdir pak
 
-echo "assets-win-linux contains additional assets for windows + linux"
-echo "godot-win-linux contains Godot executables"
-echo "mac contains OpenInftyLoop.zip for OSX"
+echo "assets-win contains assets + Godot executable for Windows"
+echo "assets-linux contains assets + Godot executable for Linux"
+echo "osx contains OpenInftyLoop.zip for OSX"
 echo "pak contains the exported game content (can be pak/zip/extracted zip)"
