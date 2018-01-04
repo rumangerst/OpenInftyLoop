@@ -8,17 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ '/assets/font-awesome-4.7.0/css/font-awesome.min.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     
-    <link rel="shortcut icon" href="/assets/img/favicon.ico">
-    <link rel="icon" type="image/png" href="/assets/img/favicon-32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/assets/img/favicon-96.png" sizes="96x96">
+    <link rel="shortcut icon" href="{{ '/assets/img/favicon.ico' | relative_url }}">
+    <link rel="icon" type="image/png" href="{{ '/assets/img/favicon-32.png' | relative_url }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ '/assets/img/favicon-96.png' | relative_url }}" sizes="96x96">
     
   </head>
   <body>
     <section class="page-header">  
-      <img class="project-logo" src="/assets/img/icon.svg" />
+      <img class="project-logo" src="{{ '/assets/img/icon.svg' | relative_url }}" />
       <h1 class="project-name">{{ site.title | default: site.github.repository_name }}</h1>
       <h2 class="project-tagline">{{ site.description | default: site.github.project_tagline }}</h2>
       {% if site.show_downloads %}
