@@ -6,8 +6,7 @@ OpenInftyLoop is a small puzzle game I ported to PC (Windows/Mac/Linux)  from ga
 exclusive to mobile platforms. 
 Just install the program, start it to play.
 
-The goal of each level is to complete the curve by rotating the tiles
-on the map by clicking on them.
+The goal of each level is to complete the curves on the map by clicking on them.
 
 # Features
 

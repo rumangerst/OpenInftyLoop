@@ -5,4 +5,7 @@ RESET_PROGRESS,reset progress,fortschritt zurücksetzen
 VOLUME_GENERAL,general volume,allgemeine lautstärke
 VOLUME_SFX,effect volume,effektlautstärke
 VOLUME_MUSIC,music volume,musiklautstärke
+FULLSCREEN,fullscreen,vollbild
 EXIT,exit,beenden
+TUTORIAL_1,close the curves by clicking on them,"schließe die kurven, indem du auf sie klickst"
+TUTORIAL_2,there can be multiple curves,es kann auch mehrere kurven geben

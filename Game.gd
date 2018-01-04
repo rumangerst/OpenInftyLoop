@@ -70,6 +70,9 @@ func update_responsive_ui():
 	$Level.get("custom_fonts/font").size = Utils.cm2px(5.0)
 	$Level.get("custom_fonts/font").extra_spacing_bottom = -Utils.cm2px(5.0 / 3.5)
 	
+	# Responsive hints
+	$LevelHint.get("custom_fonts/font").size = Utils.cm2px(1)
+	
 	# Responsive next level button
 	var available = rect_size
 	
@@ -199,13 +202,29 @@ func load_game_definition(filename):
 # Also attempts to restore if available
 func load_suitable_map():
 	
-	if current_level_restore():
-		return
+	var matching_definition = null
 	
 	for definition in available_games[current_game_id]["ramp"]:
 		if game_get_level() >= definition["required-level"]:
-			load_map_from_ramp(definition)			
-			return
+			matching_definition = definition 
+			break
+			
+	# Update hint
+	if "hint" in matching_definition.keys():
+		var hint = matching_definition["hint"]
+		
+		if not hint.empty() and hint.begins_with("_"):
+			$LevelHint.text = tr(hint.right(1)).to_lower()
+		else:
+			$LevelHint.text = hint.to_lower()
+	else:
+		$LevelHint.text = ""
+	
+	if current_level_restore():
+		return
+	else:
+		load_map_from_ramp(matching_definition)
+	
 
 # Loads a map from ramp definition
 func load_map_from_ramp(definition):

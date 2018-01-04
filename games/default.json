@@ -4,6 +4,7 @@
 	"ramp" : [
 		{ 
 			"required-level" : 0, 
+			"hint" : "_TUTORIAL_1",
 			 "generator" : { 
 				"id" : "preset", 
 				"file" : "res://map_presets/level0.preset"
@@ -11,6 +12,7 @@
 		},
 		{ 
 			"required-level" : 1, 
+			"hint" : "_TUTORIAL_2",
 			 "generator" : { 
 				"id" : "preset", 
 				"file" : "res://map_presets/level1.preset"

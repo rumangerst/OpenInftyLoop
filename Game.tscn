@@ -1,16 +1,17 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://MapBackground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://gfx/fonts/oxygen-level.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Map.tscn" type="PackedScene" id=4]
-[ext_resource path="res://GamePreferences.tscn" type="PackedScene" id=5]
-[ext_resource path="res://gfx/ui/theme.tres" type="Theme" id=6]
-[ext_resource path="res://gfx/ui/play.svg" type="Texture" id=7]
-[ext_resource path="res://gfx/ui/play_hover.svg" type="Texture" id=8]
-[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=9]
-[ext_resource path="res://sfx/load.sample" type="AudioStream" id=10]
-[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=11]
+[ext_resource path="res://gfx/fonts/oxygen-level-hint.tres" type="DynamicFont" id=3]
+[ext_resource path="res://gfx/fonts/oxygen-level.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Map.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GamePreferences.tscn" type="PackedScene" id=6]
+[ext_resource path="res://gfx/ui/theme.tres" type="Theme" id=7]
+[ext_resource path="res://gfx/ui/play.svg" type="Texture" id=8]
+[ext_resource path="res://gfx/ui/play_hover.svg" type="Texture" id=9]
+[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=10]
+[ext_resource path="res://sfx/load.sample" type="AudioStream" id=11]
+[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=12]
 
 [sub_resource type="Animation" id=1]
 
@@ -55,7 +56,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="Game" type="Container" index="0"]
+[node name="Game" type="Container"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -81,7 +82,27 @@ autoplay = ""
 
 [node name="MapBackground" parent="." index="1" instance=ExtResource( 2 )]
 
-[node name="Level" type="Label" parent="." index="2"]
+[node name="LevelHint" type="Label" parent="." index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 0.231373 )
+text = "This is a level hint"
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Margin", "Mouse", "custom_colors", "custom_fonts" ]
+
+[node name="Level" type="Label" parent="." index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -91,7 +112,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 0.235294 )
 text = "100"
 align = 2
@@ -99,14 +120,16 @@ valign = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Margin", "custom_colors", "custom_fonts" ]
+_sections_unfolded = [ "Margin", "Mouse", "custom_colors", "custom_fonts" ]
 
-[node name="Map" parent="." index="3" instance=ExtResource( 4 )]
+[node name="Map" parent="." index="4" instance=ExtResource( 5 )]
 
-[node name="GamePreferences" parent="." index="4" instance=ExtResource( 5 )]
+[node name="GamePreferences" parent="." index="5" instance=ExtResource( 6 )]
 
-[node name="FinishedUI" type="Control" parent="." index="5"]
+[node name="FinishedUI" type="Control" parent="." index="6"]
 
+editor/display_folded = true
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -115,7 +138,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-theme = ExtResource( 6 )
+theme = ExtResource( 7 )
 _sections_unfolded = [ "Anchor", "Margin", "Material", "Size Flags", "Theme", "Visibility" ]
 
 [node name="Background" type="ColorRect" parent="FinishedUI" index="0"]
@@ -198,35 +221,35 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 7 )
-texture_pressed = ExtResource( 8 )
-texture_hover = ExtResource( 8 )
-texture_disabled = ExtResource( 7 )
-texture_focused = ExtResource( 7 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 9 )
+texture_disabled = ExtResource( 8 )
+texture_focused = ExtResource( 8 )
 expand = true
 stretch_mode = 4
 _sections_unfolded = [ "Margin", "Material", "Rect", "Size Flags", "Textures", "Theme", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
 
-[node name="sfxSolved" type="AudioStreamPlayer" parent="." index="6"]
-
-stream = ExtResource( 9 )
-volume_db = 0.0
-autoplay = false
-mix_target = 0
-bus = "SFX"
-_sections_unfolded = [ "Pause" ]
-
-[node name="sfxLoad" type="AudioStreamPlayer" parent="." index="7"]
+[node name="sfxSolved" type="AudioStreamPlayer" parent="." index="7"]
 
 stream = ExtResource( 10 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
 bus = "SFX"
+_sections_unfolded = [ "Pause" ]
 
-[node name="sfxMusic" type="AudioStreamPlayer" parent="." index="8"]
+[node name="sfxLoad" type="AudioStreamPlayer" parent="." index="8"]
 
 stream = ExtResource( 11 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "SFX"
+
+[node name="sfxMusic" type="AudioStreamPlayer" parent="." index="9"]
+
+stream = ExtResource( 12 )
 volume_db = 0.0
 autoplay = true
 mix_target = 0

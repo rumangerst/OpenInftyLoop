@@ -11,6 +11,7 @@ func _ready():
 	get_preferences_element("sliderSFXVolume").connect("value_changed", self, "preferences_SFXVolume_changed")
 	get_preferences_element("sliderMusicVolume").connect("value_changed", self, "preferences_MusicVolume_changed")
 	get_preferences_element("selectGame").connect("item_selected", self, "preferences_Game_changed")
+	get_preferences_element("toggleFullscreen").connect("toggled", self, "preferences_Fullscreen_changed")
 	$gameOptionsPanel/VBoxContainer/buttonExit.connect("button_down", get_tree(), "quit")
 
 	# Resolution dependent update
@@ -23,6 +24,7 @@ func _ready():
 	get_preferences_element("labelSliderVolume").text = tr("VOLUME_GENERAL")
 	get_preferences_element("labelSliderSFXVolume").text = tr("VOLUME_SFX")
 	get_preferences_element("labelSliderMusicVolume").text = tr("VOLUME_MUSIC")
+	get_preferences_element("toggleFullscreen").text = tr("FULLSCREEN")
 	$gameOptionsPanel/VBoxContainer/buttonExit.text = tr("EXIT")
 	
 func get_preferences_element(id):
@@ -66,6 +68,11 @@ func preferences_load():
 			AudioServer.set_bus_volume_db(1, Utils.percent2volume(volume))
 			get_preferences_element("sliderMusicVolume").value = volume
 			
+		# Load GFX parameters
+		if "fullscreen" in data.keys():
+			OS.set_window_fullscreen(data["fullscreen"])
+			get_preferences_element("toggleFullscreen").pressed = OS.is_window_fullscreen()
+			
 		# Load current game
 		var parent = get_parent()
 		
@@ -81,7 +88,8 @@ func preferences_save():
 		volume = Utils.volume2percent(AudioServer.get_bus_volume_db(0)),
 		sfx_volume = Utils.volume2percent(AudioServer.get_bus_volume_db(2)),
 		music_volume = Utils.volume2percent(AudioServer.get_bus_volume_db(1)),
-		game = get_parent().current_game_id
+		game = get_parent().current_game_id,
+		fullscreen = OS.is_window_fullscreen()
 		}
 	
 	var file = File.new()
@@ -105,6 +113,11 @@ func preferences_MusicVolume_changed(volume):
 	volume = Utils.percent2volume(volume)
 	
 	AudioServer.set_bus_volume_db(1, volume)
+	preferences_save()
+	
+func preferences_Fullscreen_changed(fullscreen):
+	
+	OS.set_window_fullscreen(fullscreen)
 	preferences_save()
 	
 func preferences_Game_changed(index):
