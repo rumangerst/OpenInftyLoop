@@ -63,6 +63,7 @@ _sections_unfolded = [ "Theme" ]
 
 [node name="gameOptionsPanel" type="PopupPanel" parent="." index="0"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -117,8 +118,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 356.0
-margin_bottom = 528.0
+margin_right = 380.0
+margin_bottom = 504.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -414,7 +415,7 @@ mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 theme = ExtResource( 2 )
-toggle_mode = false
+toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
@@ -423,7 +424,7 @@ texture_pressed = ExtResource( 4 )
 texture_hover = ExtResource( 4 )
 expand = true
 stretch_mode = 4
-_sections_unfolded = [ "Margin", "Material", "Rect", "Theme", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]
+_sections_unfolded = [ "Margin", "Material", "Rect", "Textures", "Theme", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 

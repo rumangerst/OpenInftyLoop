@@ -2,9 +2,14 @@ extends Control
 
 const Utils = preload("res://Utils.gd")
 
+const TEXTURE_BUTTON_PREFERENCES_INGAME_NORMAL = preload("res://gfx/ui/menu.svg")
+const TEXTURE_BUTTON_PREFERENCES_INGAME_HOVER = preload("res://gfx/ui/menu_hover.svg")
+const TEXTURE_BUTTON_PREFERENCES_PREFERENCES_NORMAL = preload("res://gfx/ui/play.svg")
+const TEXTURE_BUTTON_PREFERENCES_PREFERENCES_HOVER = preload("res://gfx/ui/play_hover.svg") 
+
 func _ready():
 	
-	$buttonGameOptions.connect("button_down", self, "preferences_show_hide")
+	$buttonGameOptions.connect("toggled", self, "open_preferences_toggled")
 	get_preferences_element("buttonResetProgress").connect("button_down", get_parent(), "game_reset")
 	get_preferences_element("buttonRestartMap").connect("button_down", get_parent(), "game_regenerate")
 	get_preferences_element("sliderVolume").connect("value_changed", self, "preferences_volume_changed")
@@ -26,6 +31,22 @@ func _ready():
 	get_preferences_element("labelSliderMusicVolume").text = tr("VOLUME_MUSIC")
 	get_preferences_element("toggleFullscreen").text = tr("FULLSCREEN")
 	$gameOptionsPanel/VBoxContainer/buttonExit.text = tr("EXIT")
+	
+func open_preferences_toggled(toggle):
+	$gameOptionsPanel.visible = toggle
+	
+	if toggle:
+		$buttonGameOptions.texture_normal = TEXTURE_BUTTON_PREFERENCES_PREFERENCES_NORMAL
+		$buttonGameOptions.texture_focused = TEXTURE_BUTTON_PREFERENCES_PREFERENCES_NORMAL
+		$buttonGameOptions.texture_disabled = TEXTURE_BUTTON_PREFERENCES_PREFERENCES_NORMAL
+		$buttonGameOptions.texture_hover = TEXTURE_BUTTON_PREFERENCES_PREFERENCES_HOVER
+		$buttonGameOptions.texture_pressed = TEXTURE_BUTTON_PREFERENCES_PREFERENCES_HOVER
+	else:
+		$buttonGameOptions.texture_normal = TEXTURE_BUTTON_PREFERENCES_INGAME_NORMAL
+		$buttonGameOptions.texture_focused = TEXTURE_BUTTON_PREFERENCES_INGAME_NORMAL
+		$buttonGameOptions.texture_disabled = TEXTURE_BUTTON_PREFERENCES_INGAME_NORMAL
+		$buttonGameOptions.texture_hover = TEXTURE_BUTTON_PREFERENCES_INGAME_HOVER
+		$buttonGameOptions.texture_pressed = TEXTURE_BUTTON_PREFERENCES_INGAME_HOVER
 	
 func get_preferences_element(id):
 	return $gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer.get_node(id)
@@ -123,16 +144,10 @@ func preferences_Fullscreen_changed(fullscreen):
 func preferences_Game_changed(index):
 	if not get_parent().game_is_initializing and index >= 0:
 		var id = get_preferences_element("selectGame").get_item_metadata(index)
-		get_parent().game_switch_to(id)
-	
-func preferences_show_hide():
-	if(not $gameOptionsPanel.visible):
-		$AnimationPlayer.play("show_panel")
-	else:
-		$gameOptionsPanel.visible = false
+		get_parent().game_switch_to(id)	
 		
 func preferences_hide():
-	$gameOptionsPanel.visible = false
+	$buttonGameOptions.pressed = false
 		
 func clear_game_selection():
 	get_preferences_element("selectGame").clear()
