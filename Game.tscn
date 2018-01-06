@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://MapBackground.tscn" type="PackedScene" id=2]
@@ -9,9 +9,15 @@
 [ext_resource path="res://gfx/ui/theme.tres" type="Theme" id=7]
 [ext_resource path="res://gfx/ui/play.svg" type="Texture" id=8]
 [ext_resource path="res://gfx/ui/play_hover.svg" type="Texture" id=9]
-[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=10]
-[ext_resource path="res://sfx/load.sample" type="AudioStream" id=11]
-[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=12]
+[ext_resource path="res://gfx/ui/star.svg" type="Texture" id=10]
+[ext_resource path="res://sfx/star0.wav" type="AudioStream" id=11]
+[ext_resource path="res://sfx/star1.wav" type="AudioStream" id=12]
+[ext_resource path="res://sfx/star2.wav" type="AudioStream" id=13]
+[ext_resource path="res://sfx/star3.wav" type="AudioStream" id=14]
+[ext_resource path="res://sfx/star4.wav" type="AudioStream" id=15]
+[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=16]
+[ext_resource path="res://sfx/load.sample" type="AudioStream" id=17]
+[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=18]
 
 [sub_resource type="Animation" id=1]
 
@@ -55,6 +61,108 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "show_star0"
+length = 0.25
+loop = false
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("star0:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "show_star1"
+length = 0.25
+loop = false
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("star1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource_name = "show_star2"
+length = 0.25
+loop = false
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("star2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource_name = "show_star3"
+length = 0.25
+loop = false
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("star3:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+
+resource_name = "show_star4"
+length = 0.25
+loop = false
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("star4:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+
+resource_name = "wait"
+length = 1.0
+loop = false
+step = 0.1
 
 [node name="Game" type="Container" index="0"]
 
@@ -128,8 +236,6 @@ _sections_unfolded = [ "Margin", "Mouse", "custom_colors", "custom_fonts" ]
 
 [node name="FinishedUI" type="Control" parent="." index="6"]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -194,10 +300,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 487.0
-margin_top = 275.0
-margin_right = 537.0
-margin_bottom = 325.0
+margin_left = 446.0
+margin_top = 261.0
+margin_right = 578.0
+margin_bottom = 339.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 size_flags_horizontal = 1
@@ -210,7 +316,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 50.0
+margin_right = 132.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -227,12 +333,175 @@ texture_hover = ExtResource( 9 )
 texture_disabled = ExtResource( 8 )
 texture_focused = ExtResource( 8 )
 expand = true
-stretch_mode = 4
+stretch_mode = 5
 _sections_unfolded = [ "Margin", "Material", "Rect", "Size Flags", "Textures", "Theme", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
+
+[node name="starContainer" type="HBoxContainer" parent="FinishedUI/CenterContainer/VBoxContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 58.0
+margin_right = 132.0
+margin_bottom = 78.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 1
+_sections_unfolded = [ "Mouse" ]
+
+[node name="star0" type="TextureRect" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+_sections_unfolded = [ "Visibility" ]
+
+[node name="star1" type="TextureRect" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 28.0
+margin_right = 48.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="star2" type="TextureRect" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 56.0
+margin_right = 76.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="star3" type="TextureRect" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 84.0
+margin_right = 104.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="star4" type="TextureRect" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="5"]
+
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+root_node = NodePath("..")
+anims/show_star0 = SubResource( 2 )
+anims/show_star1 = SubResource( 3 )
+anims/show_star2 = SubResource( 4 )
+anims/show_star3 = SubResource( 5 )
+anims/show_star4 = SubResource( 6 )
+anims/wait = SubResource( 7 )
+playback/active = true
+playback/speed = 2.0
+blend_times = [  ]
+autoplay = ""
+_sections_unfolded = [ "Playback Options", "playback" ]
+
+[node name="sfxStar0" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="6"]
+
+stream = ExtResource( 11 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "SFX"
+
+[node name="sfxStar1" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="7"]
+
+stream = ExtResource( 12 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "SFX"
+
+[node name="sfxStar2" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="8"]
+
+stream = ExtResource( 13 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "SFX"
+
+[node name="sfxStar3" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="9"]
+
+stream = ExtResource( 14 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "SFX"
+
+[node name="sfxStar4" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="10"]
+
+stream = ExtResource( 15 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "SFX"
 
 [node name="sfxSolved" type="AudioStreamPlayer" parent="." index="7"]
 
-stream = ExtResource( 10 )
+stream = ExtResource( 16 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -241,7 +510,7 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="sfxLoad" type="AudioStreamPlayer" parent="." index="8"]
 
-stream = ExtResource( 11 )
+stream = ExtResource( 17 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -249,7 +518,7 @@ bus = "SFX"
 
 [node name="sfxMusic" type="AudioStreamPlayer" parent="." index="9"]
 
-stream = ExtResource( 12 )
+stream = ExtResource( 18 )
 volume_db = 0.0
 autoplay = true
 mix_target = 0

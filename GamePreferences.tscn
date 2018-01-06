@@ -1,9 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://GamePreferences.gd" type="Script" id=1]
 [ext_resource path="res://gfx/ui/theme.tres" type="Theme" id=2]
-[ext_resource path="res://gfx/ui/menu.svg" type="Texture" id=3]
-[ext_resource path="res://gfx/ui/menu_hover.svg" type="Texture" id=4]
+[ext_resource path="res://gfx/ui/reset.svg" type="Texture" id=3]
+[ext_resource path="res://gfx/ui/reset_hover.svg" type="Texture" id=4]
+[ext_resource path="res://gfx/ui/regenerate.svg" type="Texture" id=5]
+[ext_resource path="res://gfx/ui/regenerate_hover.svg" type="Texture" id=6]
+[ext_resource path="res://TextureVolumeSlider.tscn" type="PackedScene" id=7]
+[ext_resource path="res://gfx/ui/fullscreen.svg" type="Texture" id=8]
+[ext_resource path="res://gfx/ui/fullscreen_checked.svg" type="Texture" id=9]
+[ext_resource path="res://gfx/ui/fullscreen_hover.svg" type="Texture" id=10]
+[ext_resource path="res://gfx/ui/close.svg" type="Texture" id=11]
+[ext_resource path="res://gfx/ui/close_hover.svg" type="Texture" id=12]
+[ext_resource path="res://gfx/ui/menu.svg" type="Texture" id=13]
+[ext_resource path="res://gfx/ui/menu_hover.svg" type="Texture" id=14]
 
 [sub_resource type="Animation" id=1]
 
@@ -36,7 +46,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer:modulate")
+tracks/2/path = NodePath("gameOptionsPanel/ScrollContainer:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -48,7 +58,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="GamePreferences" type="Control" index="0"]
+[node name="GamePreferences" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -61,48 +71,37 @@ size_flags_vertical = 1
 script = ExtResource( 1 )
 _sections_unfolded = [ "Theme" ]
 
-[node name="gameOptionsPanel" type="PopupPanel" parent="." index="0"]
-
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 1.0
-margin_right = 400.0
-margin_bottom = -46.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-theme = ExtResource( 2 )
-popup_exclusive = false
-_sections_unfolded = [ "Margin", "Popup", "Theme", "Visibility", "custom_styles" ]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="gameOptionsPanel" index="0"]
+[node name="gameOptionsPanel" type="Control" parent="." index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
 rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 1
+mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-alignment = 0
-_sections_unfolded = [ "Margin" ]
+theme = ExtResource( 2 )
+_sections_unfolded = [ "Margin", "Popup", "Theme", "Visibility", "custom_styles" ]
 
-[node name="ScrollContainer" type="ScrollContainer" parent="gameOptionsPanel/VBoxContainer" index="0"]
+[node name="ColorRect" type="ColorRect" parent="gameOptionsPanel" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 380.0
-margin_bottom = 480.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 1, 1, 1, 0.901961 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="gameOptionsPanel" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = true
 mouse_filter = 0
@@ -112,14 +111,14 @@ scroll_horizontal = false
 scroll_vertical = true
 _sections_unfolded = [ "Scroll", "Size Flags" ]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="gameOptionsPanel/VBoxContainer/ScrollContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="gameOptionsPanel/ScrollContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 380.0
-margin_bottom = 504.0
+margin_right = 1024.0
+margin_bottom = 174.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -127,14 +126,72 @@ size_flags_vertical = 1
 alignment = 0
 _sections_unfolded = [ "Margin", "Rect", "Size Flags", "Visibility" ]
 
-[node name="selectGame" type="OptionButton" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="centerAvailableGames" type="CenterContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 356.0
-margin_bottom = 46.0
+margin_right = 1024.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+
+[node name="gridAvailableGames" type="GridContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 512.0
+margin_right = 512.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+columns = 3
+
+[node name="centerGame" type="CenterContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 8.0
+margin_right = 1024.0
+margin_bottom = 58.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+use_top_left = false
+
+[node name="gridGame" type="GridContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 458.0
+margin_right = 566.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+columns = 2
+
+[node name="buttonResetProgress" type="TextureButton" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame/gridGame" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
@@ -143,21 +200,25 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-flat = false
-align = 0
-selected = -1
-items = [  ]
-_sections_unfolded = [ "Rect", "custom_colors", "custom_constants", "custom_fonts", "custom_icons", "custom_styles" ]
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 3 )
+texture_focused = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+_sections_unfolded = [ "Mouse", "Rect", "custom_colors", "custom_fonts", "custom_styles" ]
 
-[node name="buttonRestartMap" type="Button" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="buttonRestartMap" type="TextureButton" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame/gridGame" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 54.0
-margin_right = 356.0
-margin_bottom = 100.0
+margin_left = 58.0
+margin_right = 108.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
@@ -166,205 +227,105 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "reload map"
-flat = false
-align = 0
-_sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 6 )
+texture_disabled = ExtResource( 5 )
+texture_focused = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+_sections_unfolded = [ "Textures", "custom_colors", "custom_fonts", "custom_styles" ]
 
-[node name="buttonResetProgress" type="Button" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="2"]
+[node name="centerVolume" type="CenterContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer" index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 108.0
-margin_right = 356.0
-margin_bottom = 154.0
+margin_top = 66.0
+margin_right = 1024.0
+margin_bottom = 116.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "reset progress"
-flat = false
-align = 0
-_sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
+use_top_left = false
 
-[node name="HSeparator" type="HSeparator" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="3"]
+[node name="gridVolume" type="GridContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 162.0
-margin_right = 356.0
-margin_bottom = 170.0
+margin_left = 429.0
+margin_right = 595.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+columns = 3
+
+[node name="sliderVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="0" instance=ExtResource( 7 )]
+
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="sliderSFXVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="1" instance=ExtResource( 7 )]
+
+margin_left = 58.0
+margin_right = 108.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="sliderMusicVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="2" instance=ExtResource( 7 )]
+
+margin_left = 116.0
+margin_right = 166.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="centerSystem" type="CenterContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer" index="3"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 124.0
+margin_right = 1024.0
+margin_bottom = 174.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+use_top_left = false
 
-[node name="labelSliderVolume" type="Label" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="4"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 178.0
-margin_right = 356.0
-margin_bottom = 218.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 2
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "general volume"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
-
-[node name="sliderVolume" type="HSlider" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="5"]
+[node name="gridSystem" type="GridContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 226.0
-margin_right = 356.0
-margin_bottom = 258.0
+margin_left = 458.0
+margin_right = 566.0
+margin_bottom = 50.0
 rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-size_flags_horizontal = 1
-size_flags_vertical = 0
-min_value = 0.0
-max_value = 1.0
-step = 0.01
-page = 0.0
-value = 1.0
-exp_edit = false
-rounded = false
-editable = true
-tick_count = 0
-ticks_on_borders = true
-focus_mode = 2
-_sections_unfolded = [ "custom_icons", "custom_styles" ]
-
-[node name="labelSliderSFXVolume" type="Label" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="6"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 266.0
-margin_right = 356.0
-margin_bottom = 306.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 2
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "effect volume"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
-
-[node name="sliderSFXVolume" type="HSlider" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="7"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 314.0
-margin_right = 356.0
-margin_bottom = 346.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-size_flags_horizontal = 1
-size_flags_vertical = 0
-min_value = 0.0
-max_value = 1.0
-step = 0.01
-page = 0.0
-value = 1.0
-exp_edit = false
-rounded = false
-editable = true
-tick_count = 0
-ticks_on_borders = true
-focus_mode = 2
-_sections_unfolded = [ "custom_icons" ]
-
-[node name="labelSliderMusicVolume" type="Label" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="8"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 354.0
-margin_right = 356.0
-margin_bottom = 394.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 2
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "music volume"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
-
-[node name="sliderMusicVolume" type="HSlider" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="9"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 402.0
-margin_right = 356.0
-margin_bottom = 434.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
-size_flags_horizontal = 1
-size_flags_vertical = 0
-min_value = 0.0
-max_value = 1.0
-step = 0.01
-page = 0.0
-value = 1.0
-exp_edit = false
-rounded = false
-editable = true
-tick_count = 0
-ticks_on_borders = true
-focus_mode = 2
-_sections_unfolded = [ "custom_icons" ]
-
-[node name="HSeparator2" type="HSeparator" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="10"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 442.0
-margin_right = 356.0
-margin_bottom = 450.0
-rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 0
+mouse_filter = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
+columns = 2
 
-[node name="toggleFullscreen" type="CheckBox" parent="gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer" index="11"]
+[node name="toggleFullscreen" type="TextureButton" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem/gridSystem" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 458.0
-margin_right = 356.0
-margin_bottom = 504.0
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
@@ -373,19 +334,24 @@ toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "fullscreen"
-flat = false
-align = 0
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 10 )
+texture_disabled = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+_sections_unfolded = [ "Rect", "Textures" ]
 
-[node name="buttonExit" type="Button" parent="gameOptionsPanel/VBoxContainer" index="1"]
+[node name="buttonExit" type="TextureButton" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem/gridSystem" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 488.0
-margin_right = 380.0
-margin_bottom = 534.0
+margin_left = 58.0
+margin_right = 108.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 size_flags_horizontal = 1
@@ -394,10 +360,14 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-text = "exit"
-flat = false
-align = 0
-_sections_unfolded = [ "Margin" ]
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 12 )
+texture_disabled = ExtResource( 11 )
+texture_focused = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+_sections_unfolded = [ "Margin", "Rect", "Textures" ]
 
 [node name="buttonGameOptions" type="TextureButton" parent="." index="1"]
 
@@ -419,9 +389,9 @@ toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 4 )
-texture_hover = ExtResource( 4 )
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 14 )
+texture_hover = ExtResource( 14 )
 expand = true
 stretch_mode = 4
 _sections_unfolded = [ "Margin", "Material", "Rect", "Textures", "Theme", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]

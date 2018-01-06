@@ -7,32 +7,41 @@ const TEXTURE_BUTTON_PREFERENCES_INGAME_HOVER = preload("res://gfx/ui/menu_hover
 const TEXTURE_BUTTON_PREFERENCES_PREFERENCES_NORMAL = preload("res://gfx/ui/play.svg")
 const TEXTURE_BUTTON_PREFERENCES_PREFERENCES_HOVER = preload("res://gfx/ui/play_hover.svg") 
 
+var available_game_buttons = {}
+
 func _ready():
 	
 	$buttonGameOptions.connect("toggled", self, "open_preferences_toggled")
-	get_preferences_element("buttonResetProgress").connect("button_down", get_parent(), "game_reset")
-	get_preferences_element("buttonRestartMap").connect("button_down", get_parent(), "game_regenerate")
-	get_preferences_element("sliderVolume").connect("value_changed", self, "preferences_volume_changed")
-	get_preferences_element("sliderSFXVolume").connect("value_changed", self, "preferences_SFXVolume_changed")
-	get_preferences_element("sliderMusicVolume").connect("value_changed", self, "preferences_MusicVolume_changed")
-	get_preferences_element("selectGame").connect("item_selected", self, "preferences_Game_changed")
-	get_preferences_element("toggleFullscreen").connect("toggled", self, "preferences_Fullscreen_changed")
-	$gameOptionsPanel/VBoxContainer/buttonExit.connect("button_down", get_tree(), "quit")
+	get_preferences_element("buttonResetProgress", "Game").connect("button_down", get_parent(), "game_reset")
+	get_preferences_element("buttonRestartMap", "Game").connect("button_down", get_parent(), "game_regenerate")
+	get_preferences_element("sliderVolume", "Volume").connect("value_changed", self, "preferences_volume_changed")
+	get_preferences_element("sliderSFXVolume", "Volume").connect("value_changed", self, "preferences_SFXVolume_changed")
+	get_preferences_element("sliderMusicVolume", "Volume").connect("value_changed", self, "preferences_MusicVolume_changed")
+	get_preferences_element("toggleFullscreen", "System").connect("toggled", self, "preferences_Fullscreen_changed")
+	get_preferences_element("buttonExit", "System").connect("button_down", get_tree(), "quit")
+	
+	# Textures
+	get_preferences_element("sliderVolume", "Volume").set_icon(load("res://gfx/ui/volume_iconvolume.svg"))
+	get_preferences_element("sliderSFXVolume", "Volume").set_icon(load("res://gfx/ui/volume_iconsfx.svg"))
+	get_preferences_element("sliderMusicVolume", "Volume").set_icon(load("res://gfx/ui/volume_iconmusic.svg"))
 
 	# Resolution dependent update
 	get_viewport().connect("size_changed", self, "update_responsive_ui")
 	update_responsive_ui()
 	
 	# Translations
-	get_preferences_element("buttonResetProgress").text = tr("RESET_PROGRESS")
-	get_preferences_element("buttonRestartMap").text = tr("RELOAD_MAP")
-	get_preferences_element("labelSliderVolume").text = tr("VOLUME_GENERAL")
-	get_preferences_element("labelSliderSFXVolume").text = tr("VOLUME_SFX")
-	get_preferences_element("labelSliderMusicVolume").text = tr("VOLUME_MUSIC")
-	get_preferences_element("toggleFullscreen").text = tr("FULLSCREEN")
-	$gameOptionsPanel/VBoxContainer/buttonExit.text = tr("EXIT")
+	get_preferences_element("buttonResetProgress", "Game").hint_tooltip = tr("RESET_PROGRESS")
+	get_preferences_element("buttonRestartMap", "Game").hint_tooltip = tr("RELOAD_MAP")
+	get_preferences_element("toggleFullscreen", "System").hint_tooltip = tr("FULLSCREEN")
+	get_preferences_element("buttonExit", "System").hint_tooltip = tr("EXIT")
+	get_preferences_element("sliderVolume", "Volume").hint_tooltip = tr("VOLUME_GENERAL")
+	get_preferences_element("sliderSFXVolume", "Volume").hint_tooltip = tr("VOLUME_SFX")
+	get_preferences_element("sliderMusicVolume", "Volume").hint_tooltip = tr("VOLUME_MUSIC")
+	
+	open_preferences_toggled(false)
 	
 func open_preferences_toggled(toggle):
+	
 	$gameOptionsPanel.visible = toggle
 	
 	if toggle:
@@ -48,15 +57,18 @@ func open_preferences_toggled(toggle):
 		$buttonGameOptions.texture_hover = TEXTURE_BUTTON_PREFERENCES_INGAME_HOVER
 		$buttonGameOptions.texture_pressed = TEXTURE_BUTTON_PREFERENCES_INGAME_HOVER
 	
-func get_preferences_element(id):
-	return $gameOptionsPanel/VBoxContainer/ScrollContainer/VBoxContainer.get_node(id)
+func get_preferences_element(id, group = null):
+	if group == null:
+		return $gameOptionsPanel/ScrollContainer/VBoxContainer.get_node(id)
+	else:
+		return get_node("gameOptionsPanel/ScrollContainer/VBoxContainer/center" + group + "/grid" + group + "/" + id)
 
 func update_responsive_ui():
 	
 	var available = rect_size
 	
 	# The option panel should be responsive
-	$gameOptionsPanel.margin_right = available.x
+	#$gameOptionsPanel.margin_right = available.x
 		
 	# Responsive fonts
 	$gameOptionsPanel.theme.default_font.size = Utils.cm2px(0.5)
@@ -64,7 +76,32 @@ func update_responsive_ui():
 	# Responsive size of preferences button
 	$buttonGameOptions.margin_top = $buttonGameOptions.margin_bottom - Utils.cm2px(1)
 	$buttonGameOptions.margin_right = $buttonGameOptions.margin_left + Utils.cm2px(1)
-	$gameOptionsPanel.margin_bottom = -10 - Utils.cm2px(1)
+	
+	# Responsive tile size 
+	var tiles_per_row = 3
+	var tile_size = min(Utils.cm2px(3), available.x / tiles_per_row)
+	get_preferences_element("sliderVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)
+	get_preferences_element("sliderSFXVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)
+	get_preferences_element("sliderMusicVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)
+	get_preferences_element("buttonResetProgress", "Game").rect_min_size = Vector2(tile_size, tile_size)
+	get_preferences_element("buttonRestartMap", "Game").rect_min_size = Vector2(tile_size, tile_size)
+	get_preferences_element("buttonExit", "System").rect_min_size = Vector2(tile_size, tile_size)
+	get_preferences_element("toggleFullscreen", "System").rect_min_size = Vector2(tile_size, tile_size)
+	
+	for button in $gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.get_children():
+		button.rect_min_size = Vector2(tile_size, tile_size)
+	
+	# Responsive grids
+	if available.x < Utils.cm2px(3) * tiles_per_row:
+		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.columns = 1
+		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame/gridGame.columns = 1
+		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume.columns = 1
+		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem/gridSystem.columns = 1
+	else:
+		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.columns = 3
+		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame/gridGame.columns = 2
+		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume.columns = 3
+		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem/gridSystem.columns = 2
 
 # Handling preferences
 func preferences_load():
@@ -79,20 +116,20 @@ func preferences_load():
 		if "volume" in data.keys():
 			var volume = (data["volume"])
 			AudioServer.set_bus_volume_db(0, Utils.percent2volume(volume))
-			get_preferences_element("sliderVolume").value = volume
+			get_preferences_element("sliderVolume", "Volume").set_value(volume)
 		if "sfx_volume" in data.keys():
 			var volume = (data["sfx_volume"])
 			AudioServer.set_bus_volume_db(2, Utils.percent2volume(volume))
-			get_preferences_element("sliderSFXVolume").value = volume
+			get_preferences_element("sliderSFXVolume", "Volume").set_value(volume)
 		if "music_volume" in data.keys():
 			var volume = (data["music_volume"])
 			AudioServer.set_bus_volume_db(1, Utils.percent2volume(volume))
-			get_preferences_element("sliderMusicVolume").value = volume
+			get_preferences_element("sliderMusicVolume", "Volume").set_value(volume)
 			
 		# Load GFX parameters
 		if "fullscreen" in data.keys():
 			OS.set_window_fullscreen(data["fullscreen"])
-			get_preferences_element("toggleFullscreen").pressed = OS.is_window_fullscreen()
+			get_preferences_element("toggleFullscreen", "System").pressed = OS.is_window_fullscreen()
 			
 		# Load current game
 		var parent = get_parent()
@@ -141,31 +178,45 @@ func preferences_Fullscreen_changed(fullscreen):
 	OS.set_window_fullscreen(fullscreen)
 	preferences_save()
 	
-func preferences_Game_changed(index):
-	if not get_parent().game_is_initializing and index >= 0:
-		var id = get_preferences_element("selectGame").get_item_metadata(index)
-		get_parent().game_switch_to(id)	
+func preferences_Game_changed(toggle, game_id):
+	if toggle and not get_parent().game_is_initializing:
+		get_parent().game_switch_to(game_id)	
 		
 func preferences_hide():
 	$buttonGameOptions.pressed = false
+	open_preferences_toggled(false)
 		
 func clear_game_selection():
-	get_preferences_element("selectGame").clear()
+	for button in $gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.get_children():
+		button.queue_free()
 	
 func add_game_selection_item(data):
 	
 	var id = data["id"]
 	
-	var select = get_preferences_element("selectGame")
-	select.add_item(data["name"].to_lower())
-	select.set_item_metadata(select.get_item_count() - 1, id)
+	var button = TextureButton.new()
+	button.rect_min_size = Vector2(50, 50)
+	button.texture_normal = load(data["icon"])
+	button.texture_hover = load(data["icon-hover"])
+	button.texture_pressed = load(data["icon-hover"])
+	button.expand = true
+	button.toggle_mode = true
+	button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+	button.hint_tooltip = tr("GAME_MODE") + ": " + data["name"].to_lower()
+	button.connect("toggled", self, "preferences_Game_changed", [id])
+	
+	$gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.add_child(button)
+	available_game_buttons[id] = button
+	update_responsive_ui()
 	
 func update_game_selection(game_id):
-	var select = get_preferences_element("selectGame")
-	if select.get_selected_metadata() != game_id:
-		for i in range(select.get_item_count()):
-			if select.get_item_metadata(i) == game_id:
-				select.select(i)
-				break
+	
+	for key in available_game_buttons.keys():
+		if key == game_id:
+			available_game_buttons[key].pressed = true
+			available_game_buttons[key].mouse_filter = MOUSE_FILTER_IGNORE
+		else:
+			available_game_buttons[key].pressed = false
+			available_game_buttons[key].mouse_filter = MOUSE_FILTER_STOP
 	
 	preferences_save()

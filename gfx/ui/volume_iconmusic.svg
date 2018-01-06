@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="128"
+   height="128"
+   viewBox="0 0 33.866666 33.866668"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="volume_iconmusic.svg"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:export-filename="/home/ruman/Projects/OpenInftyLoop/gfx/tiles/end.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="10.810994"
+     inkscape:cy="62.023977"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:snap-bbox="false"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:bbox-nodes="true">
+    <sodipodi:guide
+       position="33.866666,16.933333"
+       orientation="1,0"
+       id="guide10"
+       inkscape:locked="false" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid12"
+       spacingx="4.2333334"
+       spacingy="4.2333334" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-263.13332)">
+    <g
+       aria-label="🎝"
+       transform="matrix(0.8928707,0,0,0.8928707,-143.91424,287.88518)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#1c1c1c;fill-opacity:1;stroke:none;stroke-width:0.29632884px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot818">
+      <path
+         inkscape:connector-curvature="0"
+         d="m 178.20458,-2.0832747 q -0.58666,0 -1.09333,-0.2933333 -0.50667,-0.28 -0.81333,-0.7466667 -0.30667,-0.4666666 -0.30667,-1.0399999 0,-0.52 0.26667,-0.96 0.26666,-0.4533333 0.70666,-0.7866667 0.45334,-0.3333333 1,-0.52 0.54667,-0.1866666 1.10667,-0.1866666 0.38667,0 0.76,0.1066666 0.38667,0.093333 0.70667,0.32 l 0.13333,-3.7599999 q -1.56,-0.6133328 -2.69333,-1.0933328 -1.12,-0.493334 -2.08,-0.72 l -0.17334,4.8799994 q -0.0267,0.52 -0.30666,1.0133333 -0.28,0.4933333 -0.74667,0.8933333 -0.45333,0.4 -1,0.64 -0.53333,0.24 -1.06667,0.24 -0.6,0 -1.10666,-0.28 -0.50667,-0.2933333 -0.81334,-0.76 -0.30666,-0.4799999 -0.30666,-1.0533333 0,-0.52 0.26666,-0.9599999 0.26667,-0.44 0.70667,-0.7733334 0.45333,-0.3333333 1,-0.5199999 0.56,-0.1866667 1.12,-0.1866667 0.84,0 1.46667,0.4133333 0.0533,-1.6933333 0.10666,-3.3600001 0.0533,-1.666666 0.0933,-3.2 0.0133,-0.373333 0.16,-0.506666 0.14666,-0.146667 0.37333,-0.146667 0.32,0 0.86667,0.12 0.54666,0.12 1.2,0.32 0.66666,0.2 1.32,0.44 0.66666,0.226667 1.22666,0.48 0.56,0.24 0.90667,0.44 0.26667,0.16 0.34667,0.36 0.08,0.186667 0.08,0.413333 v 0.16 l -0.28,7.84 q -0.0133,0.5066667 -0.30667,1 -0.29333,0.4933333 -0.74667,0.8933333 -0.45333,0.4 -1,0.64 -0.54666,0.24 -1.08,0.24 z"
+         style="fill:#1c1c1c;fill-opacity:1;stroke-width:0.29632884px"
+         id="path826" />
+    </g>
+  </g>
+</svg>

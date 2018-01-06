@@ -1,5 +1,7 @@
 extends TextureButton
 
+const USER_EFFICIENCY_PENALTY = 0.1
+
 var texture_cross = preload("res://gfx/tiles-new-2/cross.svg")
 var texture_curve = preload("res://gfx/tiles-new-2/curve.svg")
 var texture_end = preload("res://gfx/tiles-new-2/end.svg")
@@ -14,6 +16,9 @@ var tile_rotation = 0
 var tile_connections_unrotated = [1, 1, 1, 1] # NESW
 var tile_connections_rotated = [1, 1, 1, 1]
 var tile_connections_count = 4
+
+var tile_user_rotations = 0
+var tile_user_initial_rotation = -1
 
 var target_color = Color(0,0,0)
 var target_rotation = 0
@@ -62,9 +67,33 @@ func end_tile_animations():
 	self.rect_rotation = self.target_rotation 
 
 func _pressed():	
+	user_rotate_tile()
+	
+func user_rotate_tile():
+	
+	if tile_user_initial_rotation == -1:
+		tile_user_initial_rotation = tile_rotation
+	
+	tile_user_rotations += 1
 	set_tile_rotation(self.tile_rotation + 1)
 	$sfxRotate.play()
-
+	
+func calculate_user_efficiency():
+	
+	var initial_rotation = tile_user_initial_rotation if tile_user_initial_rotation >= 0 else tile_rotation
+	var correct_rotation = tile_rotation
+	
+	# Count how many times the player missed the correct position
+	var distance_to_solution_from_init = (correct_rotation - initial_rotation) if initial_rotation <= correct_rotation else abs(initial_rotation - 4 - correct_rotation)
+	var misses = (tile_user_rotations / distance_to_solution_from_init) - 1 if distance_to_solution_from_init > 0 else tile_user_rotations / 4
+		
+	var score = 1.0
+	
+	for i in range(misses):
+		score -= USER_EFFICIENCY_PENALTY
+	
+	return clamp(score, 0, 1)
+	
 func set_tile_type(type):
 	
 	self.tile_type = type

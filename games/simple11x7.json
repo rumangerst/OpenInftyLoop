@@ -1,6 +1,8 @@
 {
 	"name" : "Simple 11x7",
 	"id" : "simple11x7",
+	"icon" : "res://gfx/ui/game_11x7.svg",
+	"icon-hover" : "res://gfx/ui/game_11x7_hover.svg",
 	"ramp" : [
 		{ 
 			"required-level" : 0, 

@@ -18,10 +18,12 @@ var game_is_initializing = true
 
 
 func _ready():	
+
 	get_node("Map").connect("map_solved", self, "game_level_solved")
 	get_node("Map").connect("map_update_color_data", get_node("MapBackground"), "update_color_data")
 	get_node("FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel").connect("button_down", self, "game_start_level")	
 	get_node("FinishedUI/buttonNextLevel2").connect("button_down", self, "game_start_level")
+	get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/AnimationPlayer").connect("animation_started", self, "star_animation_playsound")
 	
 	# Load available games and the progress
 	load_all_game_definitions()
@@ -79,6 +81,14 @@ func update_responsive_ui():
 	var button_size = min(min(rect_size.x, rect_size.y) / 4.0, Utils.cm2px(4))
 	$FinishedUI/CenterContainer/VBoxContainer/buttonNextLevel.rect_min_size = Vector2(button_size, button_size)
 
+	# Responsive level rating stars
+	var star_size = min(Utils.cm2px(0.75), rect_size.x / 5.0)
+	for i in range(5):
+		get_finished_ui_star(i).rect_min_size = Vector2(star_size, star_size)
+	
+func get_finished_ui_star(index):
+	return get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/star" + str(index))
+
 # Game control functions
 func game_switch_to(game_id):
 	
@@ -108,12 +118,31 @@ func game_level_solved():
 	if(game_is_generating):
 		return	
 	
-	$GamePreferences.preferences_hide()
-		
+	$GamePreferences.preferences_hide()	
 	$sfxSolved.play()
+	
+	# Efficiency stars
+	var efficiency = $Map.get_user_efficiency()
+	print(efficiency)
+	var stars = int(round(efficiency * 5.0))
+	
+	$FinishedUI/CenterContainer/VBoxContainer/starContainer/AnimationPlayer.queue("wait")
+	
+	for i in range(5):
+		if i <= stars:
+			get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/star" + str(i)).visible = true
+			get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/star" + str(i)).modulate = Color(1,1,1,0)
+			if i == 0:
+				$FinishedUI/CenterContainer/VBoxContainer/starContainer/AnimationPlayer.queue("show_star" + str(i))
+			else:
+				$FinishedUI/CenterContainer/VBoxContainer/starContainer/AnimationPlayer.queue("show_star" + str(i))
+		else:
+			get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/star" + str(i)).visible = false
+	
 	
 	current_level_clear()
 	game_set_level(game_get_level() + 1)
+	game_set_stars(game_get_stars() + stars)
 	game_save_progress()
 	
 	get_node("AnimationPlayer").play("ShowFinishedUI")
@@ -147,7 +176,7 @@ func game_load_progress():
 		file.close()
 	
 func game_empty_progress():
-	return { "level" : 0 }
+	return { "level" : 0, "stars" : 0 }
 	
 func game_get_level():	
 	if current_game_id == null:
@@ -163,6 +192,19 @@ func game_set_level(level):
 		game_progress[current_game_id] = game_empty_progress()
 	game_progress[current_game_id]["level"] = level
 	
+func game_get_stars():	
+	if current_game_id == null:
+		return -1
+	if not current_game_id in game_progress.keys():
+		game_progress[current_game_id] = game_empty_progress()
+	return int(game_progress[current_game_id]["stars"]) if "stars" in game_progress[current_game_id] else 0
+	
+func game_set_stars(level):
+	if current_game_id == null:
+		return
+	if not current_game_id in game_progress.keys():
+		game_progress[current_game_id] = game_empty_progress()
+	game_progress[current_game_id]["stars"] = level
 	
 # Loads all game definitions from games.json
 func load_all_game_definitions():
@@ -308,4 +350,12 @@ func current_level_clear():
 	
 	if dir.file_exists(savegame):
 		dir.remove(savegame)
+		
+# Animation stuff
+func star_animation_playsound(animation):
+	pass
+#	if animation.begins_with("show_star") and $FinishedUI.visible:
+#		var star = int(animation[-1])
+#		if star == 4:
+#			get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/sfxStar" + str(star)).play()
 	

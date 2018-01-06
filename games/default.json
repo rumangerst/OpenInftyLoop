@@ -1,6 +1,8 @@
 {
 	"name" : "Default Campaign",
 	"id" : "default",
+	"icon" : "res://gfx/ui/game_default.svg",
+	"icon-hover" : "res://gfx/ui/game_default_hover.svg",
 	"ramp" : [
 		{ 
 			"required-level" : 0, 

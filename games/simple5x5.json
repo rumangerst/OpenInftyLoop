@@ -1,6 +1,8 @@
 {
 	"name" : "Simple 5x5",
 	"id" : "simple5x5",
+	"icon" : "res://gfx/ui/game_5x5.svg",
+	"icon-hover" : "res://gfx/ui/game_5x5_hover.svg",
 	"ramp" : [
 		{ 
 			"required-level" : 0, 

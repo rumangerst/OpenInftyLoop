@@ -6,7 +6,7 @@ path="res://.import/menu_hover.svg-1eebc17b70dc9cf0fe134fd4cc124f06.stex"
 
 [deps]
 
-source_md5="4ac31011dee72f0fb5f48a654e10ab0f"
+source_md5="2d4bdb6264d8b0dc6e77f63013eb01bf"
 
 [params]
 
@@ -25,4 +25,4 @@ process/HDR_as_SRGB=false
 stream=false
 size_limit=0
 detect_3d=true
-svg/scale=1.0
+svg/scale=2.0

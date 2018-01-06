@@ -228,6 +228,19 @@ func get_entropy():
 	
 	return entropy / float(max_entropy)
 	
+func get_user_efficiency():
+	
+	var p = 1
+	
+	for x in range(map_width):
+		for y in range(map_height):
+			var tile = get_tile(x,y)
+			if(tile != null):
+				p = min(tile.calculate_user_efficiency(), p)
+				
+	return p
+	
+	
 func check_if_solved():
 	
 	if(is_solved()):
@@ -251,7 +264,9 @@ func serialize(filename):
 					type = tile.tile_type,
 					rotation = tile.tile_rotation,
 					x = x,
-					y = y
+					y = y,
+					user_rotation_count = tile.tile_user_rotations,
+					user_rotation_initial = tile.tile_user_initial_rotation
 					})		
 	
 			
@@ -284,9 +299,14 @@ func deserialize(filename):
 		var x = int(tiledata["x"])
 		var y = int(tiledata["y"])
 		var type = tiledata["type"]
-		var rotation = int(tiledata["rotation"])
+		var rotation = int(tiledata["rotation"])		
 		
 		add_tile(type, rotation, x, y)
+		
+		if "user_rotation_count" in tiledata.keys() and "user_rotation_initial" in tiledata.keys():
+			var tile = get_tile(x,y)
+			tile.tile_user_rotations = int(tiledata["user_rotation_count"])
+			tile.tile_user_initial_rotation = int(tiledata["user_rotation_initial"])
 		
 	map_base_entropy = base_entropy
 

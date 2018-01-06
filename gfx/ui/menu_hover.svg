@@ -29,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="28.789789"
+     inkscape:cx="-35.853068"
      inkscape:cy="56.554422"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -37,8 +37,8 @@
      units="px"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="720"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -64,7 +64,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -74,22 +74,22 @@
      id="layer1"
      transform="translate(0,-263.13332)">
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#2d2d2d;stroke-width:3.52777767;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#464646;stroke-width:3.52777767;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 8.466667,280.06665 H 25.4"
        id="path13"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#2d2d2d;stroke-width:3.52777767;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#464646;stroke-width:3.52777767;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 8.466667,274.42221 H 25.4"
        id="path15"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#2d2d2d;stroke-width:3.52777767;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#464646;stroke-width:3.52777767;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 8.466667,285.7111 H 25.4"
        id="path17"
        inkscape:connector-curvature="0" />
     <circle
-       style="fill:none;stroke:#2d2d2d;stroke-width:4.83809519;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#464646;stroke-width:4.83809519;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path16"
        cx="16.933334"
        cy="280.06665"
