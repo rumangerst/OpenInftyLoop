@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # Run prepare-deploy to prepare deployment env
-
 rm -rv dist/
 mkdir dist
 
 # Cleanup
 rm assets-win/*.import
 rm assets-linux/*.import
+rm assets-win/*.pck
+rm assets-linux/*.pck
 
 # Fetch license and README
 cd assets-win
@@ -41,5 +42,8 @@ rm -rv installer-windows/app
 cp -rv pak installer-windows/app
 cp assets-win/* installer-windows/app
 
-echo "Run InnoSetup to generate the exe installer!"
-echo "Don't forget to change the directory InnoSetup is using as base dir!"
+cd installer-windows
+wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe OpenInftyLoopInstaller.iss
+cd ..
+cp installer-windows/Output/Install-OpenInftyLoop.exe dist
+rm -rv installer-windows/app
