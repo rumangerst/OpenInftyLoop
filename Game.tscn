@@ -522,6 +522,7 @@ mouse_filter = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 1
+_sections_unfolded = [ "Mouse" ]
 
 [node name="star" type="TextureRect" parent="FinishedUI/CenterContainer/VBoxContainer/starCounterContainer" index="0"]
 
@@ -540,7 +541,7 @@ size_flags_vertical = 1
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
-_sections_unfolded = [ "Rect" ]
+_sections_unfolded = [ "Mouse" ]
 
 [node name="Label" type="Label" parent="FinishedUI/CenterContainer/VBoxContainer/starCounterContainer" index="1"]
 
@@ -553,7 +554,7 @@ margin_top = 16.0
 margin_right = 110.0
 margin_bottom = 33.0
 rect_pivot_offset = Vector2( 0, 0 )
-mouse_filter = 2
+mouse_filter = 1
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 8 )
@@ -562,7 +563,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "Mouse", "custom_fonts" ]
 
 [node name="sfxSolved" type="AudioStreamPlayer" parent="." index="7"]
 

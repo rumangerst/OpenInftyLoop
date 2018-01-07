@@ -4,12 +4,12 @@ Just install the program, start it to play.
 
 The goal of each level is to complete the curves on the map by clicking on them.
 
-[OpenInftyLoop on GitHub](https://github.com/rumangerst/OpenInftyLoop) [OpenInftyLoop on itch.io](https://mrnotsoevil.itch.io/)
+[OpenInftyLoop on GitHub](https://github.com/rumangerst/OpenInftyLoop) [OpenInftyLoop on itch.io](https://mrnotsoevil.itch.io/openinftyloop)
 
 # Download
 
 You can download the game directly from [GitHub](https://github.com/rumangerst/OpenInftyLoop/releases) or
-from [itch.io](https://mrnotsoevil.itch.io/)
+from [itch.io](https://mrnotsoevil.itch.io/openinftyloop)
 
 # Features
 

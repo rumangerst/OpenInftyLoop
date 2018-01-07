@@ -58,7 +58,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="GamePreferences" type="Control"]
+[node name="GamePreferences" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -109,7 +109,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 3
 scroll_horizontal = false
 scroll_vertical = true
-_sections_unfolded = [ "Scroll", "Size Flags" ]
+_sections_unfolded = [ "Scroll", "Size Flags", "Theme" ]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="gameOptionsPanel/ScrollContainer" index="0"]
 

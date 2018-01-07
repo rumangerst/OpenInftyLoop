@@ -72,8 +72,9 @@ func _notification(what):
 func update_responsive_ui():
 	
 	# Responsive font for level number
-	$Level.get("custom_fonts/font").size = Utils.cm2px(5.0)
-	$Level.get("custom_fonts/font").extra_spacing_bottom = -Utils.cm2px(5.0 / 3.5)
+	var level_width = min(Utils.cm2px(5.0), rect_size.x / 3)
+	$Level.get("custom_fonts/font").size = level_width * FONT_PT_PX_W
+	$Level.get("custom_fonts/font").extra_spacing_bottom = -level_width / 3.5
 	
 	# Responsive hints
 	$LevelHint.get("custom_fonts/font").size = Utils.cm2px(1)
@@ -258,7 +259,11 @@ func load_suitable_map():
 	var matching_definition = null
 	
 	for definition in available_games[current_game_id]["ramp"]:
-		if game_get_level() >= definition["required-level"]:
+		
+		var level_restriction = definition["required-level"] if "required-level" in definition.keys() else 0
+		var star_restriction = definition["required-stars"] if "required-stars" in definition.keys() else 0
+		
+		if game_get_level() >= level_restriction and game_get_stars() >= star_restriction:
 			matching_definition = definition 
 			break
 			
