@@ -162,6 +162,7 @@ func game_level_solved():
 func game_reset():
 	$GamePreferences.preferences_hide()
 	game_set_level(0)
+	game_set_stars(0)
 	game_save_progress()
 	current_level_clear()
 	load_suitable_map()
