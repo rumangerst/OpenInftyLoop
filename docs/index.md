@@ -3,7 +3,7 @@ layout: default
 ---
 
 OpenInftyLoop is a small puzzle game I ported to PC (Windows/Mac/Linux)  from games that are unfortunately
-exclusive to mobile platforms. 
+exclusive to mobile platforms.
 Just install the program, start it to play.
 
 The goal of each level is to complete the curves on the map by clicking on them.
@@ -17,7 +17,8 @@ The goal of each level is to complete the curves on the map by clicking on them.
 # Credits
 
 This game uses the [Godot Engine](http://godotengine.org/) version 3.
-The sound effects were obtained from https://opengameart.org/content/gui-sound-effects
+This game uses sound effects created by *Lokif* obtained from https://opengameart.org/content/gui-sound-effects
+and the "Xylophone A" effect created by *DANMITCH3LL* obtained from https://freesound.org/people/DANMITCH3LL/sounds/232004/.
 The background music is [Garden Music by Kevin MacLeod](https://incompetech.com/wordpress/2015/12/garden-music/).
 
 # Screenshots
