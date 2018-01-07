@@ -47,3 +47,6 @@ wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Inno\ Setup\ 5/ISCC.exe OpenInftyLo
 cd ..
 cp installer-windows/Output/Install-OpenInftyLoop.exe dist
 rm -rv installer-windows/app
+
+# Android release
+cp apk/OpenInftyLoop.apk dist
