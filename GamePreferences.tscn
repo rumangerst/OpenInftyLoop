@@ -1,19 +1,20 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://GamePreferences.gd" type="Script" id=1]
 [ext_resource path="res://gfx/ui/theme.tres" type="Theme" id=2]
 [ext_resource path="res://gfx/ui/reset.svg" type="Texture" id=3]
 [ext_resource path="res://gfx/ui/reset_hover.svg" type="Texture" id=4]
-[ext_resource path="res://gfx/ui/regenerate.svg" type="Texture" id=5]
-[ext_resource path="res://gfx/ui/regenerate_hover.svg" type="Texture" id=6]
-[ext_resource path="res://TextureVolumeSlider.tscn" type="PackedScene" id=7]
-[ext_resource path="res://gfx/ui/fullscreen.svg" type="Texture" id=8]
-[ext_resource path="res://gfx/ui/fullscreen_checked.svg" type="Texture" id=9]
-[ext_resource path="res://gfx/ui/fullscreen_hover.svg" type="Texture" id=10]
-[ext_resource path="res://gfx/ui/close.svg" type="Texture" id=11]
-[ext_resource path="res://gfx/ui/close_hover.svg" type="Texture" id=12]
-[ext_resource path="res://gfx/ui/menu.svg" type="Texture" id=13]
-[ext_resource path="res://gfx/ui/menu_hover.svg" type="Texture" id=14]
+[ext_resource path="res://GenericButton.gd" type="Script" id=5]
+[ext_resource path="res://gfx/ui/regenerate.svg" type="Texture" id=6]
+[ext_resource path="res://gfx/ui/regenerate_hover.svg" type="Texture" id=7]
+[ext_resource path="res://TextureVolumeSlider.tscn" type="PackedScene" id=8]
+[ext_resource path="res://gfx/ui/fullscreen.svg" type="Texture" id=9]
+[ext_resource path="res://gfx/ui/fullscreen_checked.svg" type="Texture" id=10]
+[ext_resource path="res://gfx/ui/fullscreen_hover.svg" type="Texture" id=11]
+[ext_resource path="res://gfx/ui/close.svg" type="Texture" id=12]
+[ext_resource path="res://gfx/ui/close_hover.svg" type="Texture" id=13]
+[ext_resource path="res://gfx/ui/menu.svg" type="Texture" id=14]
+[ext_resource path="res://gfx/ui/menu_hover.svg" type="Texture" id=15]
 
 [sub_resource type="Animation" id=2]
 
@@ -125,7 +126,7 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 
-[node name="GamePreferences" type="Control" index="0"]
+[node name="GamePreferences" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -165,7 +166,6 @@ color = Color( 1, 1, 1, 0.901961 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="gameOptionsPanel" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -275,6 +275,7 @@ texture_disabled = ExtResource( 3 )
 texture_focused = ExtResource( 3 )
 expand = true
 stretch_mode = 5
+script = ExtResource( 5 )
 _sections_unfolded = [ "Mouse", "Rect", "custom_colors", "custom_fonts", "custom_styles" ]
 
 [node name="buttonRestartMap" type="TextureButton" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame/gridGame" index="1"]
@@ -295,13 +296,14 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 6 )
-texture_hover = ExtResource( 6 )
-texture_disabled = ExtResource( 5 )
-texture_focused = ExtResource( 5 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 7 )
+texture_disabled = ExtResource( 6 )
+texture_focused = ExtResource( 6 )
 expand = true
 stretch_mode = 5
+script = ExtResource( 5 )
 _sections_unfolded = [ "Textures", "custom_colors", "custom_fonts", "custom_styles" ]
 
 [node name="centerVolume" type="CenterContainer" parent="gameOptionsPanel/ScrollContainer/VBoxContainer" index="2"]
@@ -334,20 +336,20 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 columns = 3
 
-[node name="sliderVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="0" instance=ExtResource( 7 )]
+[node name="sliderVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="0" instance=ExtResource( 8 )]
 
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 
-[node name="sliderSFXVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="1" instance=ExtResource( 7 )]
+[node name="sliderSFXVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="1" instance=ExtResource( 8 )]
 
 margin_left = 58.0
 margin_right = 108.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 
-[node name="sliderMusicVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="2" instance=ExtResource( 7 )]
+[node name="sliderMusicVolume" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume" index="2" instance=ExtResource( 8 )]
 
 margin_left = 116.0
 margin_right = 166.0
@@ -402,12 +404,13 @@ toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 8 )
-texture_pressed = ExtResource( 9 )
-texture_hover = ExtResource( 10 )
-texture_disabled = ExtResource( 8 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+texture_disabled = ExtResource( 9 )
 expand = true
 stretch_mode = 5
+script = ExtResource( 5 )
 _sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="buttonExit" type="TextureButton" parent="gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem/gridSystem" index="1"]
@@ -428,13 +431,14 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 11 )
-texture_pressed = ExtResource( 12 )
-texture_hover = ExtResource( 12 )
-texture_disabled = ExtResource( 11 )
-texture_focused = ExtResource( 11 )
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 13 )
+texture_disabled = ExtResource( 12 )
+texture_focused = ExtResource( 12 )
 expand = true
 stretch_mode = 5
+script = ExtResource( 5 )
 _sections_unfolded = [ "Margin", "Rect", "Textures" ]
 
 [node name="buttonGameOptions" type="TextureButton" parent="." index="1"]
@@ -457,12 +461,13 @@ toggle_mode = true
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 13 )
-texture_pressed = ExtResource( 14 )
-texture_hover = ExtResource( 14 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 15 )
 expand = true
 stretch_mode = 4
-_sections_unfolded = [ "Margin", "Material", "Rect", "Textures", "Theme", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]
+script = ExtResource( 5 )
+_sections_unfolded = [ "Margin", "Material", "Rect", "Theme", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 

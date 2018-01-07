@@ -3,6 +3,11 @@ extends TextureButton
 const INTERACT_VALUE_STEP = 0.1
 const SCROLL_VALUE_STEP = 0.05
 
+const SFX_CLICK = preload("res://sfx/click.wav")
+const SFX_HOVER = preload("res://sfx/hover2.wav")
+var sfx_player_click = AudioStreamPlayer.new()
+var sfx_player_hover = AudioStreamPlayer.new()
+
 signal value_changed(value)
 
 var value = 0
@@ -11,7 +16,19 @@ var interact_value_direction = 1
 func _ready():
 	self.connect("pressed", self, "on_interact")
 	
+	sfx_player_click.bus = "SFX"
+	sfx_player_click.stream = SFX_CLICK
+	sfx_player_click.volume_db = -10
+	add_child(sfx_player_click)	
+	
+	sfx_player_hover.bus = "SFX"
+	sfx_player_hover.stream = SFX_HOVER
+	sfx_player_hover.volume_db = -25
+	add_child(sfx_player_hover)	
+	
 	update_texture()
+	
+	connect("mouse_entered", self, "on_hover")
 	
 func _gui_input(event):
 	
@@ -54,4 +71,5 @@ func update_texture():
 func set_icon(texture):	
 	$icon.texture = texture
 	
-	
+func on_hover():
+	sfx_player_hover.play()

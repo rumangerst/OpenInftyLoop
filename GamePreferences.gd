@@ -220,6 +220,7 @@ func add_game_selection_item(data):
 	button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 	button.hint_tooltip = tr("GAME_MODE") + ": " + data["name"].to_lower()
 	button.connect("toggled", self, "preferences_Game_changed", [id])
+	button.set_script(load("res://GenericButton.gd"))
 	
 	$gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.add_child(button)
 	available_game_buttons[id] = button

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://MapBackground.tscn" type="PackedScene" id=2]
@@ -9,16 +9,17 @@
 [ext_resource path="res://gfx/ui/theme.tres" type="Theme" id=7]
 [ext_resource path="res://gfx/ui/play.svg" type="Texture" id=8]
 [ext_resource path="res://gfx/ui/play_hover.svg" type="Texture" id=9]
-[ext_resource path="res://gfx/ui/star.svg" type="Texture" id=10]
-[ext_resource path="res://sfx/star0.wav" type="AudioStream" id=11]
-[ext_resource path="res://sfx/star1.wav" type="AudioStream" id=12]
-[ext_resource path="res://sfx/star2.wav" type="AudioStream" id=13]
-[ext_resource path="res://sfx/star3.wav" type="AudioStream" id=14]
-[ext_resource path="res://sfx/star4.wav" type="AudioStream" id=15]
-[ext_resource path="res://gfx/fonts/OxygenMono-Regular.ttf" type="DynamicFontData" id=16]
-[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=17]
-[ext_resource path="res://sfx/load.sample" type="AudioStream" id=18]
-[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=19]
+[ext_resource path="res://GenericButton.gd" type="Script" id=10]
+[ext_resource path="res://gfx/ui/star.svg" type="Texture" id=11]
+[ext_resource path="res://sfx/star0.wav" type="AudioStream" id=12]
+[ext_resource path="res://sfx/star1.wav" type="AudioStream" id=13]
+[ext_resource path="res://sfx/star2.wav" type="AudioStream" id=14]
+[ext_resource path="res://sfx/star3.wav" type="AudioStream" id=15]
+[ext_resource path="res://sfx/star4.wav" type="AudioStream" id=16]
+[ext_resource path="res://gfx/fonts/OxygenMono-Regular.ttf" type="DynamicFontData" id=17]
+[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=18]
+[ext_resource path="res://sfx/load.sample" type="AudioStream" id=19]
+[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=20]
 
 [sub_resource type="Animation" id=1]
 
@@ -170,10 +171,10 @@ step = 0.1
 size = 16
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 16 )
+font_data = ExtResource( 17 )
 _sections_unfolded = [ "Font" ]
 
-[node name="Game" type="Container"]
+[node name="Game" type="Container" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -343,6 +344,7 @@ texture_disabled = ExtResource( 8 )
 texture_focused = ExtResource( 8 )
 expand = true
 stretch_mode = 5
+script = ExtResource( 10 )
 _sections_unfolded = [ "Margin", "Material", "Rect", "Size Flags", "Textures", "Theme", "Visibility", "custom_colors", "custom_constants", "custom_fonts", "custom_styles" ]
 
 [node name="starContainer" type="HBoxContainer" parent="FinishedUI/CenterContainer/VBoxContainer" index="1"]
@@ -374,7 +376,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
 _sections_unfolded = [ "Visibility" ]
@@ -393,7 +395,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
 
@@ -411,7 +413,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
 
@@ -429,7 +431,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
 
@@ -447,7 +449,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
 
@@ -470,7 +472,7 @@ _sections_unfolded = [ "Playback Options", "playback" ]
 
 [node name="sfxStar0" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="6"]
 
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -478,7 +480,7 @@ bus = "SFX"
 
 [node name="sfxStar1" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="7"]
 
-stream = ExtResource( 12 )
+stream = ExtResource( 13 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -486,7 +488,7 @@ bus = "SFX"
 
 [node name="sfxStar2" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="8"]
 
-stream = ExtResource( 13 )
+stream = ExtResource( 14 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -494,7 +496,7 @@ bus = "SFX"
 
 [node name="sfxStar3" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="9"]
 
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -502,7 +504,7 @@ bus = "SFX"
 
 [node name="sfxStar4" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="10"]
 
-stream = ExtResource( 15 )
+stream = ExtResource( 16 )
 volume_db = -20.0
 autoplay = false
 mix_target = 0
@@ -538,7 +540,7 @@ rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
 _sections_unfolded = [ "Mouse" ]
@@ -567,7 +569,7 @@ _sections_unfolded = [ "Mouse", "custom_fonts" ]
 
 [node name="sfxSolved" type="AudioStreamPlayer" parent="." index="7"]
 
-stream = ExtResource( 17 )
+stream = ExtResource( 18 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -576,7 +578,7 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="sfxLoad" type="AudioStreamPlayer" parent="." index="8"]
 
-stream = ExtResource( 18 )
+stream = ExtResource( 19 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -584,7 +586,7 @@ bus = "SFX"
 
 [node name="sfxMusic" type="AudioStreamPlayer" parent="." index="9"]
 
-stream = ExtResource( 19 )
+stream = ExtResource( 20 )
 volume_db = 0.0
 autoplay = true
 mix_target = 0
