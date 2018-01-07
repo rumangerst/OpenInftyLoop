@@ -39,10 +39,20 @@ func _ready():
 	get_preferences_element("sliderMusicVolume", "Volume").hint_tooltip = tr("VOLUME_MUSIC")
 	
 	open_preferences_toggled(false)
+	$gameOptionsPanel.visible = false
 	
 func open_preferences_toggled(toggle):
 	
-	$gameOptionsPanel.visible = toggle
+	#$gameOptionsPanel.visible = toggle
+	
+	if toggle:
+		$gameOptionsPanel.visible = true
+		update_responsive_ui()
+		$AnimationPlayer.play("show_panel")
+	else:
+		$AnimationPlayer.play("hide_panel")
+	
+	
 	
 	if toggle:
 		$buttonGameOptions.texture_normal = TEXTURE_BUTTON_PREFERENCES_PREFERENCES_NORMAL
@@ -102,6 +112,12 @@ func update_responsive_ui():
 		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame/gridGame.columns = 2
 		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume.columns = 3
 		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem/gridSystem.columns = 2
+		
+	# Center the scroll panel vertically
+	if $gameOptionsPanel/ScrollContainer/VBoxContainer.rect_size.y + 50 > rect_size.y:
+		$gameOptionsPanel/ScrollContainer.margin_top = 0
+	else:
+		$gameOptionsPanel/ScrollContainer.margin_top = rect_size.y / 2.0 - $gameOptionsPanel/ScrollContainer/VBoxContainer.rect_size.y / 2.0
 
 # Handling preferences
 func preferences_load():
