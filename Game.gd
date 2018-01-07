@@ -5,6 +5,9 @@ const MapGenerator_Preset = preload("res://map_generators/preset.gd")
 const MapGenerator_Random = preload("res://map_generators/random.gd")
 const MapGenerator_Pathfinder = preload("res://map_generators/pathfinder.gd")
 
+const FONT_PT_PX_W = 50.0 / 50.0
+const FONT_PT_PX_H = 50.0 / 44.0
+
 # Contains the progress of each game
 var game_progress = {}
 # Contains the available games
@@ -85,6 +88,12 @@ func update_responsive_ui():
 	var star_size = min(Utils.cm2px(0.75), rect_size.x / 5.0)
 	for i in range(5):
 		get_finished_ui_star(i).rect_min_size = Vector2(star_size, star_size)
+		
+	# Responsive star counter
+	var star_counter_star_size = Utils.cm2px(2)
+	var star_counter_font_size = Utils.cm2px(2)
+	$FinishedUI/CenterContainer/VBoxContainer/starCounterContainer/star.rect_min_size = Vector2(star_counter_star_size, star_counter_star_size)
+	$FinishedUI/CenterContainer/VBoxContainer/starCounterContainer/Label.get("custom_fonts/font").size = star_counter_font_size
 	
 func get_finished_ui_star(index):
 	return get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/star" + str(index))
@@ -122,6 +131,8 @@ func game_level_solved():
 	$sfxSolved.play()
 	
 	# Efficiency stars
+	$FinishedUI/CenterContainer/VBoxContainer/starCounterContainer/Label.text = str(game_get_stars())
+	
 	var efficiency = $Map.get_user_efficiency()
 	print(efficiency)
 	var stars = int(round(efficiency * 5.0))
@@ -353,9 +364,11 @@ func current_level_clear():
 		
 # Animation stuff
 func star_animation_playsound(animation):
-	pass
-#	if animation.begins_with("show_star") and $FinishedUI.visible:
-#		var star = int(animation[-1])
-#		if star == 4:
-#			get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/sfxStar" + str(star)).play()
+	
+	var label = $FinishedUI/CenterContainer/VBoxContainer/starCounterContainer/Label
+	label.text = str(int(label.text) + 1)
+	
+	if animation.begins_with("show_star") and $FinishedUI.visible:
+		var star = int(animation[-1])		
+		get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/sfxStar" + str(star)).play()
 	

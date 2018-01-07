@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://MapBackground.tscn" type="PackedScene" id=2]
@@ -15,9 +15,10 @@
 [ext_resource path="res://sfx/star2.wav" type="AudioStream" id=13]
 [ext_resource path="res://sfx/star3.wav" type="AudioStream" id=14]
 [ext_resource path="res://sfx/star4.wav" type="AudioStream" id=15]
-[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=16]
-[ext_resource path="res://sfx/load.sample" type="AudioStream" id=17]
-[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=18]
+[ext_resource path="res://gfx/fonts/OxygenMono-Regular.ttf" type="DynamicFontData" id=16]
+[ext_resource path="res://sfx/solved.sample" type="AudioStream" id=17]
+[ext_resource path="res://sfx/load.sample" type="AudioStream" id=18]
+[ext_resource path="res://sfx/music/graden-music.ogg" type="AudioStream" id=19]
 
 [sub_resource type="Animation" id=1]
 
@@ -160,9 +161,17 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=7]
 
 resource_name = "wait"
-length = 1.0
+length = 4.0
 loop = false
 step = 0.1
+
+[sub_resource type="DynamicFont" id=8]
+
+size = 16
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 16 )
+_sections_unfolded = [ "Font" ]
 
 [node name="Game" type="Container" index="0"]
 
@@ -301,9 +310,9 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 446.0
-margin_top = 261.0
+margin_top = 232.0
 margin_right = 578.0
-margin_bottom = 339.0
+margin_bottom = 368.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 1
 size_flags_horizontal = 1
@@ -462,7 +471,7 @@ _sections_unfolded = [ "Playback Options", "playback" ]
 [node name="sfxStar0" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="6"]
 
 stream = ExtResource( 11 )
-volume_db = 0.0
+volume_db = -20.0
 autoplay = false
 mix_target = 0
 bus = "SFX"
@@ -470,7 +479,7 @@ bus = "SFX"
 [node name="sfxStar1" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="7"]
 
 stream = ExtResource( 12 )
-volume_db = 0.0
+volume_db = -20.0
 autoplay = false
 mix_target = 0
 bus = "SFX"
@@ -478,7 +487,7 @@ bus = "SFX"
 [node name="sfxStar2" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="8"]
 
 stream = ExtResource( 13 )
-volume_db = 0.0
+volume_db = -20.0
 autoplay = false
 mix_target = 0
 bus = "SFX"
@@ -486,7 +495,7 @@ bus = "SFX"
 [node name="sfxStar3" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="9"]
 
 stream = ExtResource( 14 )
-volume_db = 0.0
+volume_db = -20.0
 autoplay = false
 mix_target = 0
 bus = "SFX"
@@ -494,14 +503,70 @@ bus = "SFX"
 [node name="sfxStar4" type="AudioStreamPlayer" parent="FinishedUI/CenterContainer/VBoxContainer/starContainer" index="10"]
 
 stream = ExtResource( 15 )
-volume_db = 0.0
+volume_db = -20.0
 autoplay = false
 mix_target = 0
 bus = "SFX"
 
+[node name="starCounterContainer" type="HBoxContainer" parent="FinishedUI/CenterContainer/VBoxContainer" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 86.0
+margin_right = 132.0
+margin_bottom = 136.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 1
+
+[node name="star" type="TextureRect" parent="FinishedUI/CenterContainer/VBoxContainer/starCounterContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 22.0
+margin_right = 72.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+_sections_unfolded = [ "Rect" ]
+
+[node name="Label" type="Label" parent="FinishedUI/CenterContainer/VBoxContainer/starCounterContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_top = 16.0
+margin_right = 110.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 0 )
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 8 )
+text = "100"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [node name="sfxSolved" type="AudioStreamPlayer" parent="." index="7"]
 
-stream = ExtResource( 16 )
+stream = ExtResource( 17 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -510,7 +575,7 @@ _sections_unfolded = [ "Pause" ]
 
 [node name="sfxLoad" type="AudioStreamPlayer" parent="." index="8"]
 
-stream = ExtResource( 17 )
+stream = ExtResource( 18 )
 volume_db = 0.0
 autoplay = false
 mix_target = 0
@@ -518,7 +583,7 @@ bus = "SFX"
 
 [node name="sfxMusic" type="AudioStreamPlayer" parent="." index="9"]
 
-stream = ExtResource( 18 )
+stream = ExtResource( 19 )
 volume_db = 0.0
 autoplay = true
 mix_target = 0
