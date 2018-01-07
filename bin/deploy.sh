@@ -5,6 +5,25 @@
 rm -rv dist/
 mkdir dist
 
+# Cleanup
+rm assets-win/*.import
+rm assets-linux/*.import
+
+# Fetch license and README
+cd assets-win
+rm LICENSE.txt
+wget -O LICENSE.txt https://github.com/rumangerst/OpenInftyLoop/raw/master/LICENSE
+rm README.txt
+wget -O README.txt https://github.com/rumangerst/OpenInftyLoop/raw/master/README.md
+cd ..
+
+cd assets-linux
+rm LICENSE
+wget https://github.com/rumangerst/OpenInftyLoop/raw/master/LICENSE
+rm README.md
+wget https://github.com/rumangerst/OpenInftyLoop/raw/master/README.md
+cd ..
+
 # Windows + Linux zip deployment
 rm -rv OpenInftyLoop
 cp -rv pak OpenInftyLoop

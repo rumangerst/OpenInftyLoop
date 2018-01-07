@@ -369,11 +369,9 @@ func current_level_clear():
 		
 # Animation stuff
 func star_animation_playsound(animation):
-	
-	var label = $FinishedUI/CenterContainer/VBoxContainer/starCounterContainer/Label
-	label.text = str(int(label.text) + 1)
-	
 	if animation.begins_with("show_star") and $FinishedUI.visible:
+		var label = $FinishedUI/CenterContainer/VBoxContainer/starCounterContainer/Label
+		label.text = str(int(label.text) + 1)
 		var star = int(animation[-1])		
 		get_node("FinishedUI/CenterContainer/VBoxContainer/starContainer/sfxStar" + str(star)).play()
 	

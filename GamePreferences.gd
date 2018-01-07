@@ -155,6 +155,10 @@ func preferences_load():
 			
 			if game in parent.available_games.keys():
 				parent.game_switch_to(game)
+	else:
+		get_preferences_element("sliderVolume", "Volume").set_value(1.0)
+		get_preferences_element("sliderSFXVolume", "Volume").set_value(1.0)
+		get_preferences_element("sliderMusicVolume", "Volume").set_value(0.8)
 	
 func preferences_save():
 	
