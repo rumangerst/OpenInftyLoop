@@ -6,7 +6,7 @@
 #define MyAppPublisher "Ruman Gerst"
 #define MyAppURL "https://rumangerst.github.io/OpenInftyLoop/"
 #define MyAppExeName "OpenInftyLoop.exe"
-#define AppSourceFolder "Z:\home\ruman\Projects\OpenInftyLoop\bin\installer-windows\app"
+#define AppSourceFolder "app"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
