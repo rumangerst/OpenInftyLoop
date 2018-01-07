@@ -67,11 +67,8 @@ func open_preferences_toggled(toggle):
 		$buttonGameOptions.texture_hover = TEXTURE_BUTTON_PREFERENCES_INGAME_HOVER
 		$buttonGameOptions.texture_pressed = TEXTURE_BUTTON_PREFERENCES_INGAME_HOVER
 	
-func get_preferences_element(id, group = null):
-	if group == null:
-		return $gameOptionsPanel/ScrollContainer/VBoxContainer.get_node(id)
-	else:
-		return get_node("gameOptionsPanel/ScrollContainer/VBoxContainer/center" + group + "/grid" + group + "/" + id)
+func get_preferences_element(id, group = null):	
+	return get_node("gameOptionsPanel/centerMenu/boxMenu/gridControls/" + id)
 
 func update_responsive_ui():
 	
@@ -88,8 +85,10 @@ func update_responsive_ui():
 	$buttonGameOptions.margin_right = $buttonGameOptions.margin_left + Utils.cm2px(1)
 	
 	# Responsive tile size 
-	var tiles_per_row = 3
-	var tile_size = min(Utils.cm2px(3), available.x / tiles_per_row)
+	var columns = 3
+	var rows = ceil(float($gameOptionsPanel/centerMenu/boxMenu/gridControls.get_child_count()) / columns) + ceil(float($gameOptionsPanel/centerMenu/boxMenu/gridAvailableGames.get_child_count()) / columns)
+	
+	var tile_size = min(Utils.cm2px(3), min(available.x / columns, available.y / rows)) * 0.9
 	get_preferences_element("sliderVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)
 	get_preferences_element("sliderSFXVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)
 	get_preferences_element("sliderMusicVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)
@@ -98,26 +97,8 @@ func update_responsive_ui():
 	get_preferences_element("buttonExit", "System").rect_min_size = Vector2(tile_size, tile_size)
 	get_preferences_element("toggleFullscreen", "System").rect_min_size = Vector2(tile_size, tile_size)
 	
-	for button in $gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.get_children():
+	for button in $gameOptionsPanel/centerMenu/boxMenu/gridAvailableGames.get_children():
 		button.rect_min_size = Vector2(tile_size, tile_size)
-	
-	# Responsive grids
-	if available.x < Utils.cm2px(3) * tiles_per_row:
-		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.columns = 1
-		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame/gridGame.columns = 1
-		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume.columns = 1
-		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem/gridSystem.columns = 1
-	else:
-		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.columns = 3
-		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerGame/gridGame.columns = 2
-		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerVolume/gridVolume.columns = 3
-		$gameOptionsPanel/ScrollContainer/VBoxContainer/centerSystem/gridSystem.columns = 2
-		
-	# Center the scroll panel vertically
-	if $gameOptionsPanel/ScrollContainer/VBoxContainer.rect_size.y + 50 > rect_size.y:
-		$gameOptionsPanel/ScrollContainer.margin_top = 0
-	else:
-		$gameOptionsPanel/ScrollContainer.margin_top = rect_size.y / 2.0 - $gameOptionsPanel/ScrollContainer/VBoxContainer.rect_size.y / 2.0
 
 # Handling preferences
 func preferences_load():
@@ -207,7 +188,7 @@ func preferences_hide():
 	open_preferences_toggled(false)
 		
 func clear_game_selection():
-	for button in $gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.get_children():
+	for button in $gameOptionsPanel/centerMenu/boxMenu/gridAvailableGames.get_children():
 		button.queue_free()
 	
 func add_game_selection_item(data):
@@ -226,7 +207,7 @@ func add_game_selection_item(data):
 	button.connect("toggled", self, "preferences_Game_changed", [id])
 	button.set_script(load("res://GenericButton.gd"))
 	
-	$gameOptionsPanel/ScrollContainer/VBoxContainer/centerAvailableGames/gridAvailableGames.add_child(button)
+	$gameOptionsPanel/centerMenu/boxMenu/gridAvailableGames.add_child(button)
 	available_game_buttons[id] = button
 	update_responsive_ui()
 	
