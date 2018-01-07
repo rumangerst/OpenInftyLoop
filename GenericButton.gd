@@ -8,12 +8,12 @@ var sfx_player_hover = AudioStreamPlayer.new()
 func _ready():	
 	sfx_player_click.bus = "SFX"
 	sfx_player_click.stream = SFX_CLICK
-	sfx_player_click.volume_db = -10
+	sfx_player_click.volume_db = -25
 	add_child(sfx_player_click)	
 	
 	sfx_player_hover.bus = "SFX"
 	sfx_player_hover.stream = SFX_HOVER
-	sfx_player_hover.volume_db = -25
+	sfx_player_hover.volume_db = -40
 	add_child(sfx_player_hover)	
 	
 	connect("mouse_entered", self, "on_hover")	

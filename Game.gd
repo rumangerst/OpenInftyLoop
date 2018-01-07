@@ -91,8 +91,8 @@ func update_responsive_ui():
 		get_finished_ui_star(i).rect_min_size = Vector2(star_size, star_size)
 		
 	# Responsive star counter
-	var star_counter_star_size = Utils.cm2px(2)
-	var star_counter_font_size = Utils.cm2px(2)
+	var star_counter_star_size = Utils.cm2px(1.5)
+	var star_counter_font_size = Utils.cm2px(1.5)
 	$FinishedUI/CenterContainer/VBoxContainer/starCounterContainer/star.rect_min_size = Vector2(star_counter_star_size, star_counter_star_size)
 	$FinishedUI/CenterContainer/VBoxContainer/starCounterContainer/Label.get("custom_fonts/font").size = star_counter_font_size
 	
