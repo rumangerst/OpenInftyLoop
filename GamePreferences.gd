@@ -88,7 +88,7 @@ func update_responsive_ui():
 	var columns = 3
 	var rows = ceil(float($gameOptionsPanel/centerMenu/boxMenu/gridControls.get_child_count()) / columns) + ceil(float($gameOptionsPanel/centerMenu/boxMenu/gridAvailableGames.get_child_count()) / columns)
 	
-	var tile_size = min(Utils.cm2px(3), min(available.x / columns, available.y / rows)) * 0.9
+	var tile_size = min(Utils.cm2px(3), min(available.x / columns, (available.y + 2 * $buttonGameOptions.margin_top) / rows)) * 0.9
 	get_preferences_element("sliderVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)
 	get_preferences_element("sliderSFXVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)
 	get_preferences_element("sliderMusicVolume", "Volume").rect_min_size = Vector2(tile_size, tile_size)

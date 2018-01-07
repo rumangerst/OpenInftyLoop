@@ -307,6 +307,14 @@ func load_map_from_ramp(definition):
 		var min_coverage = int(definition["generator"]["min-coverage"])
 		var min_paths = int(definition["generator"]["min-paths"])
 		
+		# For phones: invert width and height
+		if (width > height and not rect_size.x > rect_size.y) or (width < height and not rect_size.x < rect_size.y):
+			var x = width
+			width = height
+			height = x
+			
+			print("Switching width & height for phones")
+		
 		get_node("Map").initialize_map(width, height)
 		MapGenerator_Pathfinder.map_generator(get_node("Map"), min_coverage, min_line_length, min_paths)
 		
