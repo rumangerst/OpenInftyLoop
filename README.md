@@ -24,6 +24,12 @@ This game uses sound effects created by *Lokif* obtained from https://opengamear
 and the "Xylophone A" effect created by *DANMITCH3LL* obtained from https://freesound.org/people/DANMITCH3LL/sounds/232004/.
 The background music is [Garden Music by Kevin MacLeod](https://incompetech.com/wordpress/2015/12/garden-music/).
 
+# Building and deploying
+
+The `deploy.sh` script is used to deploy OpenInftyLoop for all supported platforms.
+Please note that you need to install the Godot export templates first before using this script.
+The packages will be placed in the `deploy-bin` folder.
+
 # Screenshots
 
 ![Screenshot](https://raw.githubusercontent.com/rumangerst/OpenInftyLoop/master/docs/assets/img/screenshot1.png)

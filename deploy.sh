@@ -26,11 +26,11 @@ mkdir deploy-tmp
 ./bin/godot --export "Linux/X11 (x32)" deploy-tmp/OpenInftyLoop.x86
 ./bin/godot --export "Windows Desktop" deploy-tmp/OpenInftyLoop.exe
 
-cp README.md deploy-bin
-cp LICENSE deploy-bin
-cp icon.ico deploy-bin
-cp icon.png deploy-bin
-cp icon.svg deploy-bin
+cp README.md deploy-tmp
+cp LICENSE deploy-tmp
+cp icon.ico deploy-tmp
+cp icon.png deploy-tmp
+cp icon.svg deploy-tmp
 
 cd deploy-tmp
 zip -r ../deploy-bin/OpenInftyLoop-Windows-Linux.zip .
