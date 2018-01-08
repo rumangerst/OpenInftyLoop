@@ -30,6 +30,14 @@ The `deploy.sh` script is used to deploy OpenInftyLoop for all supported platfor
 Please note that you need to install the Godot export templates first before using this script.
 The packages will be placed in the `deploy-bin` folder.
 
+Deploying requires:
+
+* Installed Godot 3 export templates
+* WINE
+* [Inno Setup](http://www.jrsoftware.org/isinfo.php) installed in default WINEPREFIX (or change the WINEPREFIX in the deployment script)
+
+The deployment script will automatically fetch Godot 3 x64 and place it into the `bin` directory.
+
 # Screenshots
 
 ![Screenshot](https://raw.githubusercontent.com/rumangerst/OpenInftyLoop/master/docs/assets/img/screenshot1.png)
